@@ -49,25 +49,6 @@ vector <double> analytical_sol (vector<vector<double>>& mesh, double W, double H
 }
 
 vector<vector <double>> generate_mesh (double x, double y, size_t n_x, size_t n_y, int coordinate_sys) {
-    switch (coordinate_sys) {
-        // Cartesian coordinate system
-        case 1:
-            /* code */
-            break;
-
-        // Polar coordinate system
-        case 2:
-
-            break;
-
-        // cylindrical coordinate system
-        case 3:
-
-            break;
-        
-        default:
-            break;
-    }
 
     double dx = x/(n_x-1);
     double dy = y/(n_y-1);
@@ -349,44 +330,4 @@ vector<vector<double>> test_fdm_error(const vector<double>& x_analytical, const 
     cout << "The average error is: " << avg << endl;
 
     return error_output;
-}
-
-void outputResults (const vector<vector<double>>& mesh, const vector<double>& t_sim, const vector<double>& t_analytic, const vector<double>& err) {
-    size_t rows = mesh.size();
-    size_t mesh_cols = mesh[0].size();
-
-    // Open file stream and create output "results.csv" file
-    std::ofstream resultfile;
-    resultfile.open ("../results/results.csv");
-
-    // Table headers
-    resultfile << "Node number,BC (y/n),X,Y,T_numerical";
-    bool isTestCase = !t_analytic.empty() && !err.empty();
-    if (isTestCase) {
-        resultfile << ",T_analytical,Error\n";
-    }
-    else { resultfile << "\n"; }
-
-    // Actual data
-    for (size_t i = 0; i < rows; i++) {
-        // node number
-        resultfile << i+1;
-        // mesh details
-        for (size_t j = 0; j < mesh_cols; j++) {
-            resultfile << "," << mesh[i][j];
-        }
-        // temperature values from the numerical computation
-        resultfile << "," << t_sim[i];
-        // if test case is requested, output the analytical solution and the error percentages
-        if (isTestCase) {
-            resultfile << "," << t_analytic[i] << "," << err[i];
-        }
-        // End row
-        resultfile << "\n";
-    }
-
-    // close the file stream and ouput termination message
-    resultfile.close();
-    cout << "\n-------------\nComputation done!\n";
-    cout << "Results can be found in results/results.csv file!\n";
 }

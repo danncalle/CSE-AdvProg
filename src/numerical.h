@@ -30,6 +30,5 @@ vector<double> finite_diff_4_pts(size_t n_x, size_t n_y, int coordinate_sys, con
 
 void LU_factorization(const vector<vector<double>>& M, vector<vector<double>>& L, vector<vector<double>>& U);
 
-void outputResults (const vector<vector<double>>& mesh, const vector<double>& t_sim, const vector<double>& t_analytic = {}, const vector<double>& err ={});
 
 #endif

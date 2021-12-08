@@ -8,37 +8,10 @@
 #include <tuple>
 #include <utility>
 
+#include "inputoutput.h"
 #include "utils.h"
 #include "numerical.h"
 
-#include "matplotlibcpp.h"
-
-namespace plt = matplotlibcpp;
-
-using std::vector;
-
-void plotResults(const vector<double>& dimensions, const vector<int>& nodes, const vector<double>& t_sim) {
-    size_t counter = 0;
-    vector<vector<double>> x, y, z;
-    std::vector<double> x_row = {}, y_row = {}, z_row = {};
-
-    for (int i = 0; i < nodes[0];  i++) {
-        x_row = {}, y_row = {}, z_row = {};
-        
-        for (int j = 0; j < nodes[1]; j++) {
-            x_row.push_back(dimensions[1]*j/(nodes[1]-1));
-            y_row.push_back(dimensions[0]*i/(nodes[0]-1));
-            z_row.push_back(t_sim[counter]);
-            counter++;
-        }
-        x.push_back(x_row);
-        y.push_back(y_row);
-        z.push_back(z_row);
-    }
-
-    plt::plot_surface(x, y, z);
-    plt::show();
-}
 
 int main () {
     vector<double> dimensions;
