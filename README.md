@@ -33,7 +33,7 @@ sudo apt-get install python3-tk
 ### Git cloning
 Clone the git repository using the following code
 ```
-git clone TODO
+git clone https://gitlab.lrz.de/00000000014AE223/pde-solver-dy.git
 ```
 ### Building and Running
 Inside the `/src` folder, run `cmake` command. Then inside the `/build` folder run `make` command. Finally, open the executable file using `./pde_solver` command inside the `/build` folder.
@@ -93,7 +93,7 @@ Results from the analytical solution is compared with the grid values obtained f
 ## Example usage
 (TODO Redo after correctly configuring cmake and make files)
 
-In the `/src` folder, use the command `g++ -o main main.cpp utils.cpp numerical.cpp` to build the executable file. Then, use the command `./main`.
+In the `/src` folder, use the command `g++ -o pde_solver main.cpp numerical.cpp utils.cpp inputoutput.cpp -I/usr/include/python3.8 -lpython3.8` to build the executable file. Then, use the command `./pde_solver`.
 
 # Test case:
 
