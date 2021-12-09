@@ -32,7 +32,7 @@ template <typename T> void print_matrix(const T& m) {
 
 
 vector<vector<double>> vec_2_mat(size_t n_x, size_t n_y, const vector<double>& x) {
-// This function converts a vector to a 2D matrix.
+// This function converts a vector to a 2D matrix. TODO
     
     vector<double> v (n_x,0);
     vector<vector<double>> M (n_y, v);

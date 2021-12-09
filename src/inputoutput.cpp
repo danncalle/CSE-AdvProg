@@ -182,13 +182,13 @@ void plotResults(const vector<double>& dimensions, const vector<int>& nodes, con
     vector<vector<double>> x, y, z;
     vector<double> x_row = {}, y_row = {}, z_row = {};
 
-    for (int i = 0; i < nodes[0];  i++) {
+    for (int i = 0; i < nodes[1];  i++) {
         x_row = {}, y_row = {}, z_row = {};
         
-        for (int j = 0; j < nodes[1]; j++) {
+        for (int j = 0; j < nodes[0]; j++) {
             // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
-            x_row.push_back(dimensions[1]*j/(nodes[1]-1));
-            y_row.push_back(dimensions[0]*i/(nodes[0]-1));
+            x_row.push_back(dimensions[0]*j/(nodes[0]-1));
+            y_row.push_back(dimensions[1]*i/(nodes[1]-1));
             z_row.push_back(t_sim[counter]);
             counter++;
         }

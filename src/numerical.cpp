@@ -33,11 +33,11 @@ vector <double> analytical_sol (vector<vector<double>>& mesh, double W, double H
     for (int i = 0; i<no_of_nodes; i++) {
         // directly use the input BC values for the boundary nodes
         // case distinction applied for the corner nodes (top cornes nodes should belong to the left and right sides)
-        if (mesh[i][0] && mesh[i][2] == H && mesh[i][1] != 0 && mesh[i][1] != W) {
-            temperature[i] = T2;
-        }
-        else if (mesh[i][0]) {
+        if (mesh[i][0] && (mesh[i][2] == 0 || mesh[i][1] == 0 || mesh[i][1] == W)) {
             temperature[i] = T1;
+        }
+        else if (mesh[i][0] && mesh[i][2] == H && mesh[i][1] != 0 && mesh[i][1] != W) {
+            temperature[i] = T2;
         }
         // if not a boundary node, use the closed-form formula to calculate the exact temperature value
         else {
@@ -66,35 +66,35 @@ vector<vector <double>> generate_mesh (double x, double y, size_t n_x, size_t n_
     vector<vector<double>> mesh (total_nodes, rows);
 
     int current_node = 0;
-    for (int i = 0; i < n_x; i++) {
-        for (int j = 0; j < n_y; j++) {
+    for (int j = 0; j < n_y; j++) {
+        for (int i = 0; i < n_x; i++) {
             
             // Specify if the node is at the boundary or not (if yes, then directly used the x or y values)
             // Specify the coordinates of the current node
             if (i == 0) {
                 mesh[current_node][0] = 1;
                 mesh[current_node][1] = 0;
-                mesh[current_node][2] = i*dy;
+                mesh[current_node][2] = j*dy;
             }
             else if (i == n_x - 1) {
                 mesh[current_node][0] = 1;
                 mesh[current_node][1] = x;
-                mesh[current_node][2] = i*dy;
+                mesh[current_node][2] = j*dy;
             }
             else if (j == 0) {
                 mesh[current_node][0] = 1;
-                mesh[current_node][1] = j*dx;
+                mesh[current_node][1] = i*dx;
                 mesh[current_node][2] = 0;
             }
             else if (j == n_y - 1) {
                 mesh[current_node][0] = 1;
-                mesh[current_node][1] = j*dx;
+                mesh[current_node][1] = i*dx;
                 mesh[current_node][2] = y;
             }
             else {
                 mesh[current_node][0] = 0;
-                mesh[current_node][1] = j*dx;
-                mesh[current_node][2] = i*dy;
+                mesh[current_node][1] = i*dx;
+                mesh[current_node][2] = j*dy;
             }
 
             current_node++;
@@ -104,23 +104,29 @@ vector<vector <double>> generate_mesh (double x, double y, size_t n_x, size_t n_
     return mesh;
 }
 
-vector<vector<double>> fdm_mesh(size_t n_x, size_t n_y, int coordinate_sys) {
-    
+vector<vector<double>> fdm_mesh(double x, double y, size_t n_x, size_t n_y, int coordinate_sys) {
+    // Creates the matrix of the finite differences system of equations based on 
+    // the number of nodes and coordinate system.
+
+    //Calculates size of the matrix
+    double dx = x/(n_x-1);
+    double dy = y/(n_y-1);
     size_t no_of_elems = n_x*n_y;
     vector<double> rows (no_of_elems,0.0);
     vector<vector<double>> fdm_matrix (no_of_elems,rows);
     
     int row;
 
+// Filling the elements of the matrix
 // Inner points of the mesh (not on boundaries)
     for (int i=1; i < n_x-1; i++) {
         for (int j=1; j < n_y-1; j++) {
             row = i + j*n_x;
-            fdm_matrix[row][row] = -4;
-            fdm_matrix[row][row-1] = 1;
-            fdm_matrix[row][row+1] = 1;
-            fdm_matrix[row][row+n_x] = 1;
-            fdm_matrix[row][row-n_x] = 1;
+            fdm_matrix[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
+            fdm_matrix[row][row-1] = pow(dy, 2);
+            fdm_matrix[row][row+1] = pow(dy, 2);
+            fdm_matrix[row][row+n_x] = pow(dx, 2);
+            fdm_matrix[row][row-n_x] = pow(dx, 2);
         }
     }
 
@@ -155,21 +161,28 @@ vector<vector<double>> fdm_mesh(size_t n_x, size_t n_y, int coordinate_sys) {
     return fdm_matrix;
 }
 
-// Receives a vector of boundary conditions where in case 
-// of cartesian coordinates, has the shape: [Lower BC, Left BC, Right BC, Upper BC]
-// TODO: describe the shape in case of different coordinates system.
-
 vector<double> fdm_rhs(size_t n_x, size_t n_y, int coordinate_sys,const vector<double>& bc) {
-    
+    // Right hand side of the linear system Ax = b, in includes the boundary conditions (and the heat generation term in future implementation).
+    // Receives a vector of boundary conditions where in case 
+    // of cartesian coordinates, has the shape: [Lower BC, Left BC, Right BC, Upper BC]
+    // TODO: describe the shape in case of different coordinates system.
+
     size_t no_of_elems = n_x*n_y;
     vector<double> b (no_of_elems);
 
     int row;
 
-// Inner points of the mesh are 0 for vector b.
+// Inner points of the mesh are 0 for vector b when no internal heat generation is present.
+
+// Upper boundary condition
+    int j = n_y-1;
+    for (int i=0; i<n_x;i++) {
+        row = i + j*n_x;
+        b[row] = bc[3];
+    }
 
 // Lower boundary condition
-    int j = 0;
+    j = 0;
     for (int i=0; i<n_x;i++) {
         row = i + j*n_x;
         b[row] = bc[0];
@@ -190,18 +203,16 @@ vector<double> fdm_rhs(size_t n_x, size_t n_y, int coordinate_sys,const vector<d
         b[row] = bc[2];
     }  
 
-// Upper boundary condition
-    j = n_y-1;
-    for (int i=0; i<n_x;i++) {
-        row = i + j*n_x;
-        b[row] = bc[3];
-    }
     return b;
 }
 
 void LU_factorization(const vector<vector<double>>& M, vector<vector<double>>& L, vector<vector<double>>& U) {
+// Perform the LU factorization of a matrix M.
+
     const int N = M.size();
     double sum;
+
+// Calculate elements of L and then elements of U 
     for (int i = 0; i < N; i++) {
         for (int k = 0; k < i; k++) {
             
@@ -227,6 +238,7 @@ void LU_factorization(const vector<vector<double>>& M, vector<vector<double>>& L
 }
 
 vector<vector<double>> test_LU(const vector<vector<double>>& L, const vector<vector<double>>& U) {
+// Takes the matrices L, U and multiply them. Used to check that the factorization is correct.
 
     int N = L.size();
     vector<double> v (N,0);
@@ -253,6 +265,7 @@ vector<vector<double>> test_LU(const vector<vector<double>>& L, const vector<vec
 }
 
 vector<double> backward_sustitution(const vector<vector<double>>& M, const vector<double>& b) {
+// Takes an upper triangular matrix M and vector b and solves the system Mx = b via backward substitution.
 
     double sum;
     int N = M.size();
@@ -274,7 +287,8 @@ vector<double> backward_sustitution(const vector<vector<double>>& M, const vecto
 }
 
 vector<double> forward_sustitution(const vector<vector<double>>& M, const vector<double>& b) {
-    
+// Takes a lower triangular matrix M and vector b and solves the system Mx = b via forward substitution.
+
     double sum;
     int N = M.size();
     vector<double> y (N,0);
@@ -293,11 +307,12 @@ vector<double> forward_sustitution(const vector<vector<double>>& M, const vector
     return y;
 }
 
-vector<double> finite_diff_4_pts(size_t n_x, size_t n_y, int coordinate_sys, const vector<double>& bc) {
+vector<double> finite_diff_4_pts(double W, double H, size_t n_x, size_t n_y, int coordinate_sys, const vector<double>& bc) {
+// Solve a 2D poisson's equation using the 4 point stencil finite differences method.
 
 // Creating the finite difference system for which Mx = b
     int N = n_x*n_y;
-    vector<vector<double>> M = fdm_mesh(n_x, n_y, coordinate_sys);
+    vector<vector<double>> M = fdm_mesh(W, H, n_x, n_y, coordinate_sys);
     vector<double> b = fdm_rhs(n_x, n_y, coordinate_sys, bc);
     
 // Creating the skeleton of the L and U matrices 
@@ -314,6 +329,9 @@ vector<double> finite_diff_4_pts(size_t n_x, size_t n_y, int coordinate_sys, con
 }
 
 vector<vector<double>> test_fdm_error(const vector<double>& x_analytical, const vector<double>& x_fdm) {
+// Computes the error of the fdm method against the analytical solution. Both must be provided as arguments.
+// Prints the max, min and avg error in the console.
+
     int N = x_analytical.size();
     vector<double> v (N, 0);
     vector<vector<double>> error_output (2, v);

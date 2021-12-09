@@ -31,7 +31,7 @@ int main () {
     vector<vector<double>> mesh = generate_mesh(dimensions[0], dimensions[1], nodes[0], nodes[1], coordinate_sys);
     
     // Use the 4-point finite difference method to provide numerical approximation to the problem
-    vector<double> t_sim = finite_diff_4_pts(nodes[0], nodes[1], coordinate_sys, BC_temperatures);
+    vector<double> t_sim = finite_diff_4_pts(dimensions[0], dimensions[1], nodes[0], nodes[1], coordinate_sys, BC_temperatures);
     
     // Implement unit test case (if requested) and output the results
     if(isTestCase) { 

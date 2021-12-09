@@ -26,7 +26,7 @@ vector<double> backward_sustitution(const vector<vector<double>>& M, const vecto
 
 vector<double> forward_sustitution(const vector<vector<double>>& M, const vector<double>& b);
 
-vector<double> finite_diff_4_pts(size_t n_x, size_t n_y, int coordinate_sys, const vector<double>& bc);
+vector<double> finite_diff_4_pts(double x, double y, size_t n_x, size_t n_y, int coordinate_sys, const vector<double>& bc);
 
 void LU_factorization(const vector<vector<double>>& M, vector<vector<double>>& L, vector<vector<double>>& U);
 
