@@ -8,12 +8,13 @@
 #include <tuple>
 #include <utility>
 
-#include "inputoutput.h"
-#include "utils.h"
-#include "numerical.h"
+#include "./headers/inputoutput.h"
+#include "./headers/utils.h"
+#include "./headers/numerical.h"
 
 
 int main () {
+    // Initialize the variables to be used
     vector<double> dimensions;
     vector<int> nodes;
     bool isTestCase;
@@ -29,8 +30,7 @@ int main () {
     // Create mesh accordingly
     vector<vector<double>> mesh = generate_mesh(dimensions[0], dimensions[1], nodes[0], nodes[1], coordinate_sys);
     
-    // Implement numerical solution TODO
-    // vector<double> t_sim (mesh.size(), 999);
+    // Use the 4-point finite difference method to provide numerical approximation to the problem
     vector<double> t_sim = finite_diff_4_pts(nodes[0], nodes[1], coordinate_sys, BC_temperatures);
     
     // Implement unit test case (if requested) and output the results
@@ -38,18 +38,17 @@ int main () {
         // Calculate the analytical solution
         vector<double> t_analytical = analytical_sol(mesh, dimensions[0], dimensions[1], BC_temperatures[0], BC_temperatures[3]);
 
-        // Calculate the error between analytical and numerical values TODO
-        // vector<double> error (mesh.size(), 404);
+        // Calculate the error between analytical and numerical values
         vector<vector<double>> error = test_fdm_error(t_analytical, t_sim);
 
-        // Save the total results
+        // Save the total results (with analytical and error vectors)
         outputResults(mesh, t_sim, t_analytical, error[1]);
     }
     else {
+        // Save the total results
         outputResults(mesh, t_sim);
     }
 
-    // Print results (of the error) to the console
-    // TODO
+    // Plot a graph of the results for the simulated temperature values
     plotResults(dimensions, nodes, t_sim);
 }

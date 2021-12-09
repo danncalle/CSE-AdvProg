@@ -14,8 +14,8 @@
 #include <tuple>
 #include <utility>
 
-#include "numerical.h"
-#include "utils.h"
+#include "./headers/numerical.h"
+#include "./headers/utils.h"
 
 using std::vector;
 using std::cout;
@@ -24,17 +24,22 @@ using std::cin;
 using std::accumulate;
 
 vector <double> analytical_sol (vector<vector<double>>& mesh, double W, double H, double T1, double T2) {
+    // Calculates the analytical solution of the unit test case based on the desired mesh and BCs
+
     size_t no_of_nodes = mesh.size();
     vector<double> temperature (no_of_nodes);
     double f_sum = 0;
 
     for (int i = 0; i<no_of_nodes; i++) {
+        // directly use the input BC values for the boundary nodes
+        // case distinction applied for the corner nodes (top cornes nodes should belong to the left and right sides)
         if (mesh[i][0] && mesh[i][2] == H && mesh[i][1] != 0 && mesh[i][1] != W) {
             temperature[i] = T2;
         }
         else if (mesh[i][0]) {
             temperature[i] = T1;
         }
+        // if not a boundary node, use the closed-form formula to calculate the exact temperature value
         else {
            f_sum = 0;
             for (int n = 1; n<= 200; n++) {
@@ -49,11 +54,14 @@ vector <double> analytical_sol (vector<vector<double>>& mesh, double W, double H
 }
 
 vector<vector <double>> generate_mesh (double x, double y, size_t n_x, size_t n_y, int coordinate_sys) {
+    //  Generate a mesh based on the major dimensions of the domain and the number of nodes in each direction
 
+    // calculating the step size and total number of nodes
     double dx = x/(n_x-1);
     double dy = y/(n_y-1);
     size_t total_nodes = n_x * n_y;
 
+    // Initializing the rows and columns of the mesh matrix
     vector<double> rows (3);
     vector<vector<double>> mesh (total_nodes, rows);
 
@@ -61,7 +69,7 @@ vector<vector <double>> generate_mesh (double x, double y, size_t n_x, size_t n_
     for (int i = 0; i < n_x; i++) {
         for (int j = 0; j < n_y; j++) {
             
-            // Specify if the node is at the boundary or not
+            // Specify if the node is at the boundary or not (if yes, then directly used the x or y values)
             // Specify the coordinates of the current node
             if (i == 0) {
                 mesh[current_node][0] = 1;
@@ -102,7 +110,6 @@ vector<vector<double>> fdm_mesh(size_t n_x, size_t n_y, int coordinate_sys) {
     vector<double> rows (no_of_elems,0.0);
     vector<vector<double>> fdm_matrix (no_of_elems,rows);
     
-    // print_matrix(fdm_matrix);
     int row;
 
 // Inner points of the mesh (not on boundaries)

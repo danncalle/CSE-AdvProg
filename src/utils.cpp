@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <tuple>
 
-#include "utils.h"
+#include "./headers/utils.h"
 
 using std::string;
 using std::vector;
@@ -15,6 +15,7 @@ using std::cin;
 
 
 template <typename T> void print_vector(const T& v) {
+    // Print a vector of any type :)
     for (const auto& elem: v) {
         cout << elem << " ";
     }
@@ -22,6 +23,7 @@ template <typename T> void print_vector(const T& v) {
 }
 
 template <typename T> void print_matrix(const T& m) {
+    // Print a matrix of any type :)
     for (const auto& vec : m ) {
         print_vector(vec);
     }

@@ -4,8 +4,8 @@
 #include <limits>
 #include <fstream>
 
-#include "inputoutput.h"
-#include "matplotlibcpp.h"
+#include "./headers/inputoutput.h"
+#include "./headers/matplotlibcpp.h"
 
 namespace plt = matplotlibcpp;
 
@@ -16,20 +16,20 @@ using std::string;
 using std::vector;
 
 void initiateProgram () {
+    // send the welcome and problem description messages
+
     cout << "PDE Solver started!\n";
     cout << "The current version of the solver is capable of solving the following 2D heat transfer problem. For a rectangular domain with customized ";
     cout << "width and height in the cartesian coordinate system (i.e. x and y), the steady-state temperature values for the internal nodes are evaluated. ";
     cout << "Only Dirichlet boundary conditions are allowed for homogeneous materials (only a single material for the whole domain is expected). ";
-    cout << "Boundary conditions are defined as follows.\n";
-    cout << "Left side: Temperature T1\n";
-    cout << "Top side: Temperature T2\n";
-    cout << "Right side: Temperature T3\n";
-    cout << "Bottom side: Temperature T4\n";
-    cout << "PS:  the left-bottom corner of the domain conincides with the origion of the coordinate system.\n\n";
+    cout << "PS:  the bottom-left corner of the domain conincides with the origion of the coordinate system.\n\n";
     cout << "Now, let's start with defining the problem values!\n\n";
 }
 
 std::tuple<vector<double>, vector<int>, bool, vector<double>> requestInputs () {
+    // Moderating all inputs required from the user
+    // values should adhere to the set restrictions, otherwise the program keeps asking for the same value until it's correct
+
     // initializing the input values
     vector<double> dimensions = {0,0};
     vector<int> nodes = {0,0};
@@ -56,7 +56,10 @@ std::tuple<vector<double>, vector<int>, bool, vector<double>> requestInputs () {
 
         condition  = true;
         type_error = true;
+
+        // keep asking for the input if the condition (i.e. restriction criteria) or the type of the input is not correct
         while (condition || type_error) {
+            // display the respective message
             cout << messages[i];
 
             if (i <= 1) { cin >> dimensions[i]; }
@@ -89,8 +92,6 @@ std::tuple<vector<double>, vector<int>, bool, vector<double>> requestInputs () {
         cout << "The first temperature value is for all sides of the domain except the top one. The second value is ";
         cout << "for the top side only.\n";
         NotempsRequired = 2;
-    } else {
-
     }
 
     // ask for the temperature at the boundaries that are required
@@ -99,9 +100,11 @@ std::tuple<vector<double>, vector<int>, bool, vector<double>> requestInputs () {
                     "Right boundary - ", 
                     "Upper boundary - "};
 
-
+    
     for (int i = 0; i < NotempsRequired; i++) {
         type_error = true;
+
+        // keep asking for the input if the type of the input is not correct
         while (type_error) {
             if (NotempsRequired == 4) {
                 cout << messages_bc[i];
@@ -129,6 +132,9 @@ std::tuple<vector<double>, vector<int>, bool, vector<double>> requestInputs () {
 }
 
 void outputResults (const vector<vector<double>>& mesh, const vector<double>& t_sim, const vector<double>& t_analytic, const vector<double>& err) {
+    // Save all results collected from all previous computations to a csv file
+
+    // get the size of the system
     size_t rows = mesh.size();
     size_t mesh_cols = mesh[0].size();
 
@@ -169,24 +175,30 @@ void outputResults (const vector<vector<double>>& mesh, const vector<double>& t_
 }
 
 void plotResults(const vector<double>& dimensions, const vector<int>& nodes, const vector<double>& t_sim) {
+    // using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
+
+    // initialize the x, y, and z matrices (and their corresponding rows)
     size_t counter = 0;
     vector<vector<double>> x, y, z;
-    std::vector<double> x_row = {}, y_row = {}, z_row = {};
+    vector<double> x_row = {}, y_row = {}, z_row = {};
 
     for (int i = 0; i < nodes[0];  i++) {
         x_row = {}, y_row = {}, z_row = {};
         
         for (int j = 0; j < nodes[1]; j++) {
+            // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
             x_row.push_back(dimensions[1]*j/(nodes[1]-1));
             y_row.push_back(dimensions[0]*i/(nodes[0]-1));
             z_row.push_back(t_sim[counter]);
             counter++;
         }
+        // add these rows to the respective matrices
         x.push_back(x_row);
         y.push_back(y_row);
         z.push_back(z_row);
     }
 
+    // plot and show the generated surface
     plt::plot_surface(x, y, z);
     plt::show();
 }
