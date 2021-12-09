@@ -36,7 +36,7 @@ Clone the git repository using the following code
 git clone https://gitlab.lrz.de/00000000014AE223/pde-solver-dy.git
 ```
 ### Building and Running
-Inside the `/src` folder, run `cmake` command. Then inside the `/build` folder run `make` command. Finally, open the executable file using `./pde_solver` command inside the `/build` folder.
+Inside the `/build` folder, run `cmake ../src` command. Then inside the `/build` folder run `make` command. Finally, open the executable file using `./pde_solver` command inside the `/build` folder.
 
 ## Sprint 1 (v1.0)
 ### Introduction
@@ -52,7 +52,7 @@ The user inputs and their corresponding restrictions are:
 1.	Domain specification (double, double)
     -	Major dimensions: the width and height of the rectangle (_W_ and _H_, respectively). Must be greater than 0 and with compatible units.
 2.	Mesh specification (int, int)
-    -	Number of nodes in each direction (*n_x* and *n_y*), step size is calculated accordingly. Must be integers and greater than 0.
+    -	Number of nodes in each direction (*n_x* and *n_y*), step size is calculated accordingly. Must be integers and greater than 1.
 3.	Boundary conditions (double, double, double, double)
     -	Currently, only Dirichlet BCs are supported. Therefore, 4 temperature values are required according to the diagram above (_T1_, _T2_, _T3_, and _T4_). Temperature values are in degree Celsius.
 
@@ -69,10 +69,6 @@ After execution of the simulation with all input parameters, a text file (`resul
 - Node number, 1st coordinate, 2nd coordinate, BC (1/0), T_sim, T_analytic, error
 
 Also, if dependencies are installed correctly, a 3D plot for the simulated temperature values will be generated. Finally, the code outputs to the console the maximum, minimum, and average values of the error percentage. (if the test case option is selected).
-
-<div style="text-align:center">
-    <img src="assets/images/3dplot.jpeg" alt="Test case visualization" width="450">
-</div>
 
 ## Test case
 The simple unit test implemented for the testing of the numerical simulation accuracy is defined as special case of the general problem presented before. Only two temperature values (_T1_ and _T2_) are expected as BCs, and the inhomogeneous case is not supported. This special case is presented below:
@@ -91,9 +87,7 @@ For this problem, the analytical solution for the temperature value (_T_) for an
 Results from the analytical solution is compared with the grid values obtained from the numerical solution. The error percentage for each node is calculated and the maximum, minimum, and average values are reported to the console.
 
 ## Example usage
-(TODO Redo after correctly configuring cmake and make files)
-
-In the `/src` folder, use the command `g++ -o pde_solver main.cpp numerical.cpp utils.cpp inputoutput.cpp -I/usr/include/python3.8 -lpython3.8` to build the executable file. Then, use the command `./pde_solver`.
+In the `/build` folder, use the command `make` to build the executable file. Then, use the command `./pde_solver`.
 
 # Test case:
 
@@ -101,9 +95,9 @@ Set Width to: 1
 
 Set Height to: 1
 
-Set Nodes in X direction to: 5
+Set Nodes in X direction to: 11
 
-Set Nodes in Y direction to: 5
+Set Nodes in Y direction to: 11
 
 Set Run unit test to: 1
 
@@ -113,24 +107,33 @@ Set Temperature T2 to: 100
 
 Check `../results/results.csv` file with the details of the results.
 
+<div style="text-align:center">
+    <img src="assets/images/3dplot.jpeg" alt="Test case visualization" width="450">
+</div>
+
 # Basic case
 
-Set Width to: 1
+Set Width to: 2
 
-Set Height to: 1
+Set Height to: 5
 
-Set Nodes in X direction to: 5
+Set Nodes in X direction to: 25
 
-Set Nodes in Y direction to: 5
+Set Nodes in Y direction to: 18
 
 Set Run unit test to: 0
 
-Set Temperature T1 to: 0
+Set Temperature T1 to: -20
 
-Set Temperature T2 to: 0
+Set Temperature T2 to: 100
 
-Set Temperature T3 to: 0
+Set Temperature T3 to: 50
 
-Set Temperature T4 to: 100
+Set Temperature T4 to: 0
 
 Check `../results/results.csv` file with the details of the results.
+
+
+<div style="text-align:center">
+    <img src="assets/images/basic_case.png" alt="Basic case visualization" width="450">
+</div>
