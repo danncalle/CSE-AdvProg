@@ -6,6 +6,7 @@
 #include <memory>
 #include <array>
 
+#include "Initiation.h"
 #include "Domain.h"
 
 using std::array;
@@ -24,8 +25,7 @@ class Mesh {
         void _generatePolarMesh(const vector<double>&);
 
     public:
-        Mesh(const std::unique_ptr<Domain>& domain);
-        void generateMesh(const std::unique_ptr<Domain>& domain);
+        Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>& domain);
         vector<vector<double>> getMesh() const;
 };
 

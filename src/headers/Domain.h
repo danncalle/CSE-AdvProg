@@ -3,12 +3,9 @@
 
 #include <vector>
 
-using std::vector;
+#include "EllipticPDE.h"
 
-enum class Type {
-    Cartesian = 1,
-    Polar = 2
-};
+using std::vector;
 
 enum class Shape {
     Square = 1,
@@ -23,11 +20,10 @@ class Domain {
         vector<double> _major_dimensions;
 
         Shape _shape;
-        const Type _type;
+        const CoordinateSystem _type;
 
     public:
-        Domain(vector<double> m_dim, int boundaries, Shape shape, Type type);
-        Type getType() const;
+        Domain(vector<double> m_dim, int boundaries, Shape shape, const EllipticPDE* pde);
         Shape getShape() const;
         vector<double> getDimensions() const;
 };      

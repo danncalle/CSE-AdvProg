@@ -5,14 +5,14 @@
 
 enum class CoordinateSystem {
     Cartesian = 1,
-    Radial = 2
+    Polar = 2
 };
 
 enum class PDEType {
     Elliptic = 1,
     Hyperbolic = 2,
     Parabolic = 3
-} ;
+};
 
 class Initiation {
     protected:
@@ -23,7 +23,7 @@ class Initiation {
 
     public:
         Initiation(CoordinateSystem coordinate_system, bool test_case, bool is_homogeneous, PDEType PDE_type);
-        CoordinateSystem getCoordinateSystem () const;
+        CoordinateSystem getCoordinateSystem() const;
         bool isTestCase() const;
         bool isHomogeneous() const;
 

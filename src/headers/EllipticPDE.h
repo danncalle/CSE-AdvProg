@@ -4,11 +4,16 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <memory>
+#include <limits>
 
 #include "Initiation.h"
+#include "Utilities.h"
 
 using std::vector;
 using std::array;
+using std::cout;
+using std::endl;
 
 enum class BoundaryTypes {
     Dirichlet = 1,

@@ -1,10 +1,10 @@
 #include "headers/Domain.h"
 
-Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, Type type) 
-: _type(type)
+Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, const EllipticPDE* pde) 
+: _type(pde->getCoordinateSystem())
 {   
     // == Cartesian Case ==
-    if(_type == Type::Cartesian) {
+    if(_type == CoordinateSystem::Cartesian) {
         _n_of_boundries = 4;
         
         // TODO1: request input for "Shape" 
@@ -23,7 +23,7 @@ Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, Type type)
     }
 
     // == Polar Case ==
-    else if (_type == Type::Polar) {
+    else if (_type == CoordinateSystem::Polar) {
         _n_of_boundries = 1;
 
         // TODO 4: request input for "Shape" 
@@ -41,6 +41,5 @@ Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, Type type)
     }
 }
 
-Type Domain::getType() const { return _type; }
 Shape Domain::getShape() const { return _shape; }
 vector<double> Domain::getDimensions() const { return _major_dimensions; }

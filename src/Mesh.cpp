@@ -1,29 +1,22 @@
 #include "headers/Mesh.h"
 
 
-Mesh::Mesh(const std::unique_ptr<Domain>& domain) {
+Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>& domain) {
     // TODO 1: request input for number of nodes
 
-    if(domain->getType() == Type::Polar) {
+    if(pde->getCoordinateSystem() == CoordinateSystem::Polar) {
         double maxDim = domain->getDimensions()[0];
         _step_size = {maxDim/(_n_of_nodes[0]-1), maxDim/(_n_of_nodes[1]-1)};
         _total_nodes = ((_n_of_nodes[0]-1)*_n_of_nodes[1]) + 1;
+
+        _generatePolarMesh(domain->getDimensions());
     }
-    else if (domain->getType() == Type::Cartesian) {
+    else if (pde->getCoordinateSystem() == CoordinateSystem::Cartesian) {
         vector<double> maxDims = domain->getDimensions();
         _step_size = {maxDims[0]/(_n_of_nodes[0]-1), maxDims[1]/(_n_of_nodes[1]-1)};
         _total_nodes = _n_of_nodes[0]*_n_of_nodes[1];
-    }
 
-    generateMesh(std::move(domain));
-}
-
-void Mesh::generateMesh(const std::unique_ptr<Domain>& domain) {
-    if(domain->getType() == Type::Cartesian) {
         _generateCartesianMesh(domain->getDimensions());
-    }
-    else if (domain->getType() == Type::Polar) {
-        _generatePolarMesh(domain->getDimensions());
     }
 }
 
