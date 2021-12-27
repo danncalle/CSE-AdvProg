@@ -40,13 +40,13 @@ class Utilities {
             double temp;
             
             while (!condition_satisfied || !type_satisfied) {
-                cout << m << endl;
+                cout << m;
                 
                 if(type == 'i') {
                     cin >> temp;
                     if (!cin.fail()) {
                         
-                        if ((temp - floor(temp) != 0)) type_satisfied = false;
+                        if ((temp - floor(temp)) != 0) type_satisfied = false;
                         else { 
                             type_satisfied = true;
                             input = static_cast<int>(temp); 
@@ -55,9 +55,8 @@ class Utilities {
                     }
                     else type_satisfied = false;
                 } else {
-                    cin >> input;  
-                    
-                    type_satisfied = !cin.fail(); 
+                    cin >> input; 
+                    type_satisfied = !cin.fail();
                 }
 
                 if (input < min || input > max) condition_satisfied = false;

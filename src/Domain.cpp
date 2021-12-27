@@ -1,23 +1,23 @@
 #include "headers/Domain.h"
 
-Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, const EllipticPDE* pde) 
+Domain::Domain(const std::unique_ptr<Initiation>& pde) 
 : _type(pde->getCoordinateSystem())
-{   
+{       
+    std::unique_ptr<Utilities> utils = std::make_unique<Utilities>();
     // == Cartesian Case ==
     if(_type == CoordinateSystem::Cartesian) {
         _n_of_boundries = 4;
         
-        // TODO1: request input for "Shape" 
-        // type int
-        // min: 1, max 2
+        _shape = static_cast<Shape>(utils->requestInput('i',1, 2, "* Enter shape type (Square = 1, Rectangle = 2): "));
 
         if (_shape == Shape::Square) {
-            // TODO2: request ONE input for the side length
-            // BUT INPUT AS 2 VAALUES IN ARRAY
+            _major_dimensions[0] = utils->requestInput('d', 0.0, static_cast<double>(INFINITY), "* Enter side length: ");
+            _major_dimensions[1] = _major_dimensions[0];
         }
         else if (_shape == Shape::Rectangle) {
+            vector<string> m = {"* Enter width (>0): ", "* Enter height (>0): "};
             for (size_t i = 0; i < 2; i++) {
-                // TODO3: request input for each side (only 2)
+                _major_dimensions[i] = utils->requestInput('d', 0.0, static_cast<double>(INFINITY), m[i]);        
             }
         }
     }
@@ -26,20 +26,19 @@ Domain::Domain(vector<double> m_dim, int boundaries, Shape shape, const Elliptic
     else if (_type == CoordinateSystem::Polar) {
         _n_of_boundries = 1;
 
-        // TODO 4: request input for "Shape" 
-        // type int
-        // min: 1 (+2), max 2 (+2)
+        _shape = static_cast<Shape>(utils->requestInput('i',1, 2, "* Enter shape type (Circle = 1, Oval = 2): ")+2);
 
         if (_shape == Shape::Circle) {
-            // TODO 5: request ONE input for the radius length
+            _major_dimensions[0] = utils->requestInput('d', 0.0, static_cast<double>(INFINITY), "* Enter radius length (>0): ");
         }
         else if (_shape == Shape::Oval) {
-            for (size_t i = 0; i < 3; i++) {
-                // TODO 6: request input for radius, a, b
+            for (size_t i = 0; i < 2; i++) {
+                vector<string> m = {"* Enter radius in horizontal direction (>0): ", "* Enter radius in vertical direction (>0): "};
+                _major_dimensions[i] = utils->requestInput('d', 0.0, static_cast<double>(INFINITY), m[i]);
             }
         }
     }
 }
 
 Shape Domain::getShape() const { return _shape; }
-vector<double> Domain::getDimensions() const { return _major_dimensions; }
+array<double,2> Domain::getDimensions() const { return _major_dimensions; }

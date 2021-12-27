@@ -2,6 +2,7 @@
 #define INITIATION.H
 
 #include <iostream>
+#include <memory>
 
 enum class CoordinateSystem {
     Cartesian = 1,
@@ -13,6 +14,8 @@ enum class PDEType {
     Hyperbolic = 2,
     Parabolic = 3
 };
+
+class Domain;
 
 class Initiation {
     protected:
@@ -27,6 +30,7 @@ class Initiation {
         bool isTestCase() const;
         bool isHomogeneous() const;
 
+        virtual void setInHomogeneous(const std::unique_ptr<Domain>& domain) = 0;
         virtual void setBCs() = 0;
 
         virtual ~Initiation() = default;
