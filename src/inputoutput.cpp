@@ -168,7 +168,7 @@ void outputResults (const vector<vector<double>>& mesh, const vector<double>& t_
         resultfile << "\n";
     }
 
-    // close the file stream and ouput termination message
+    // close the file stream and output termination message
     resultfile.close();
     cout << "\n-------------\nComputation done!\n";
     cout << "Results can be found in results/results.csv file!\n";
