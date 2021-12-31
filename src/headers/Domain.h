@@ -1,5 +1,5 @@
-#ifndef DOMAIN.H
-#define DOMAIN.H
+#ifndef __DOMAIN_H_
+#define __DOMAIN_H_
 
 #include <vector>
 #include <memory>
@@ -20,7 +20,9 @@ enum class Shape {
 };
 
 class Initiation;
-
+// Both the domain and the ellipticPDE have number of boundaries, i think it is better if 
+// only domain has _n_of_boundaries and it is passed as an argument to ellipticPDE where it is set.
+// This would recquire to have a get_num_bcs from the domain. Otherwise, just leave num_bcs to the EllipticPDE class.
 class Domain {
     private:
         int _n_of_boundries;

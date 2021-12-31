@@ -1,5 +1,5 @@
-#ifndef ELLIPTICPDE.H
-#define ELLIPTICPDE.H
+#ifndef __ELLIPTICPDE_H_
+#define __ELLIPTICPDE_H_
 
 #include <iostream>
 #include <vector>
@@ -16,17 +16,12 @@ using std::array;
 using std::cout;
 using std::endl;
 
-enum class BoundaryTypes {
-    Dirichlet = 1,
-    Neumann = 2
-};
-
 class Domain;
 
 class EllipticPDE : public Initiation {
     private:
-        vector<BoundaryTypes> _boundary_types = {}; // Types of BCs for all possible boundries
-        vector<double> _boundary_values = {}; // Values of BCs for all possible boundries
+        vector<BoundaryTypes> _boundary_types = {}; // Types of BCs for all possible boundaries
+        vector<double> _boundary_values = {}; // Values of BCs for all possible boundaries
 
         double _heat_ss; // Heat source/sink
         array <double, 2> _heat_ss_location = {}; // location of Heat source/sink
@@ -36,6 +31,12 @@ class EllipticPDE : public Initiation {
         EllipticPDE(CoordinateSystem, bool test_case, bool is_homogeneous);
         void setBCs ();
         void setInHomogeneous(const std::unique_ptr<Domain>& domain);
+        
+        vector<BoundaryTypes> getBcTypes();
+        vector<double> getBcs();
+        double getHeatSs();
+        double getK();
+        array<double,2> getHeatSsLoc();
 };
 
 #endif

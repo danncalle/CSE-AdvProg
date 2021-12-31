@@ -70,62 +70,107 @@ CMakeFiles/pde_solver.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/main.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/main.cpp -o CMakeFiles/pde_solver.dir/main.cpp.s
 
-CMakeFiles/pde_solver.dir/numerical.cpp.o: CMakeFiles/pde_solver.dir/flags.make
-CMakeFiles/pde_solver.dir/numerical.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/numerical.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pde_solver.dir/numerical.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/numerical.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/numerical.cpp
+CMakeFiles/pde_solver.dir/Initiation.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/Initiation.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Initiation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/pde_solver.dir/Initiation.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/Initiation.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Initiation.cpp
 
-CMakeFiles/pde_solver.dir/numerical.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/numerical.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/numerical.cpp > CMakeFiles/pde_solver.dir/numerical.cpp.i
+CMakeFiles/pde_solver.dir/Initiation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/Initiation.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Initiation.cpp > CMakeFiles/pde_solver.dir/Initiation.cpp.i
 
-CMakeFiles/pde_solver.dir/numerical.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/numerical.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/numerical.cpp -o CMakeFiles/pde_solver.dir/numerical.cpp.s
+CMakeFiles/pde_solver.dir/Initiation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/Initiation.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Initiation.cpp -o CMakeFiles/pde_solver.dir/Initiation.cpp.s
 
-CMakeFiles/pde_solver.dir/utils.cpp.o: CMakeFiles/pde_solver.dir/flags.make
-CMakeFiles/pde_solver.dir/utils.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pde_solver.dir/utils.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/utils.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/utils.cpp
+CMakeFiles/pde_solver.dir/Domain.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/Domain.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Domain.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pde_solver.dir/Domain.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/Domain.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Domain.cpp
 
-CMakeFiles/pde_solver.dir/utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/utils.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/utils.cpp > CMakeFiles/pde_solver.dir/utils.cpp.i
+CMakeFiles/pde_solver.dir/Domain.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/Domain.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Domain.cpp > CMakeFiles/pde_solver.dir/Domain.cpp.i
 
-CMakeFiles/pde_solver.dir/utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/utils.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/utils.cpp -o CMakeFiles/pde_solver.dir/utils.cpp.s
+CMakeFiles/pde_solver.dir/Domain.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/Domain.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Domain.cpp -o CMakeFiles/pde_solver.dir/Domain.cpp.s
 
-CMakeFiles/pde_solver.dir/inputoutput.cpp.o: CMakeFiles/pde_solver.dir/flags.make
-CMakeFiles/pde_solver.dir/inputoutput.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/inputoutput.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pde_solver.dir/inputoutput.cpp.o"
-	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/inputoutput.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/inputoutput.cpp
+CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp
 
-CMakeFiles/pde_solver.dir/inputoutput.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/inputoutput.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/inputoutput.cpp > CMakeFiles/pde_solver.dir/inputoutput.cpp.i
+CMakeFiles/pde_solver.dir/EllipticPDE.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/EllipticPDE.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp > CMakeFiles/pde_solver.dir/EllipticPDE.cpp.i
 
-CMakeFiles/pde_solver.dir/inputoutput.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/inputoutput.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/inputoutput.cpp -o CMakeFiles/pde_solver.dir/inputoutput.cpp.s
+CMakeFiles/pde_solver.dir/EllipticPDE.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/EllipticPDE.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp -o CMakeFiles/pde_solver.dir/EllipticPDE.cpp.s
+
+CMakeFiles/pde_solver.dir/Mesh.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/Mesh.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pde_solver.dir/Mesh.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/Mesh.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp
+
+CMakeFiles/pde_solver.dir/Mesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/Mesh.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp > CMakeFiles/pde_solver.dir/Mesh.cpp.i
+
+CMakeFiles/pde_solver.dir/Mesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/Mesh.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp -o CMakeFiles/pde_solver.dir/Mesh.cpp.s
+
+CMakeFiles/pde_solver.dir/Solver.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/Solver.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pde_solver.dir/Solver.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/Solver.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp
+
+CMakeFiles/pde_solver.dir/Solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/Solver.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp > CMakeFiles/pde_solver.dir/Solver.cpp.i
+
+CMakeFiles/pde_solver.dir/Solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/Solver.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp -o CMakeFiles/pde_solver.dir/Solver.cpp.s
+
+CMakeFiles/pde_solver.dir/PostProcessing.cpp.o: CMakeFiles/pde_solver.dir/flags.make
+CMakeFiles/pde_solver.dir/PostProcessing.cpp.o: /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/PostProcessing.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/pde_solver.dir/PostProcessing.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/pde_solver.dir/PostProcessing.cpp.o -c /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/PostProcessing.cpp
+
+CMakeFiles/pde_solver.dir/PostProcessing.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pde_solver.dir/PostProcessing.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/PostProcessing.cpp > CMakeFiles/pde_solver.dir/PostProcessing.cpp.i
+
+CMakeFiles/pde_solver.dir/PostProcessing.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pde_solver.dir/PostProcessing.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/PostProcessing.cpp -o CMakeFiles/pde_solver.dir/PostProcessing.cpp.s
 
 # Object files for target pde_solver
 pde_solver_OBJECTS = \
 "CMakeFiles/pde_solver.dir/main.cpp.o" \
-"CMakeFiles/pde_solver.dir/numerical.cpp.o" \
-"CMakeFiles/pde_solver.dir/utils.cpp.o" \
-"CMakeFiles/pde_solver.dir/inputoutput.cpp.o"
+"CMakeFiles/pde_solver.dir/Initiation.cpp.o" \
+"CMakeFiles/pde_solver.dir/Domain.cpp.o" \
+"CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o" \
+"CMakeFiles/pde_solver.dir/Mesh.cpp.o" \
+"CMakeFiles/pde_solver.dir/Solver.cpp.o" \
+"CMakeFiles/pde_solver.dir/PostProcessing.cpp.o"
 
 # External object files for target pde_solver
 pde_solver_EXTERNAL_OBJECTS =
 
 pde_solver: CMakeFiles/pde_solver.dir/main.cpp.o
-pde_solver: CMakeFiles/pde_solver.dir/numerical.cpp.o
-pde_solver: CMakeFiles/pde_solver.dir/utils.cpp.o
-pde_solver: CMakeFiles/pde_solver.dir/inputoutput.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/Initiation.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/Domain.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/Mesh.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/Solver.cpp.o
+pde_solver: CMakeFiles/pde_solver.dir/PostProcessing.cpp.o
 pde_solver: CMakeFiles/pde_solver.dir/build.make
 pde_solver: CMakeFiles/pde_solver.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable pde_solver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable pde_solver"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pde_solver.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -1,10 +1,12 @@
 #include <iostream>
 
-#include "headers/Utilities.h"
-#include "headers/Initiation.h"
-#include "headers/EllipticPDE.h"
-#include "headers/Domain.h"
-#include "headers/Mesh.h"
+#include "./headers/Utilities.h"
+#include "./headers/Initiation.h"
+#include "./headers/EllipticPDE.h"
+#include "./headers/Domain.h"
+#include "./headers/Mesh.h"
+#include "./headers/Solver.h"
+#include "./headers/PostProcessing.h"
 
 void initiateProgram () {
     // Print  welcome message and problem description
@@ -20,21 +22,24 @@ void initiateProgram () {
 
 int main () {
     initiateProgram();
-
+// Why make this a pointer and why unique?
+// Maybe using the "i" char is not the best alternative? It's only used for integers
     std::unique_ptr<Utilities> utils = std::make_unique<Utilities>();
     
-    vector<string> m = {"* Please enter desired coordinate system (Cartesian = 1, Polar = 2): ",
+// Changed the name to message to make it clearer
+    vector<string> message = {"* Please enter desired coordinate system (Cartesian = 1, Polar = 2): ",
                         "* Run test case? (1 or 0): ",
-                        "* Would you like to solve for the homogenous case (1 or 0): "};
+                        "* Would you like to solve for the homogenous case (1 or 0): ",
+                        "* Please enter desired solution method (LU = 0, Gauss-Seidel = 1): "};
     
-    bool is_test_case = static_cast<bool>(utils->requestInput('i', 0, 1, m[1]));
+    bool is_test_case = static_cast<bool>(utils->requestInput('i', 0, 1, message[1]));
     
     CoordinateSystem coordinate_sys;
     if(is_test_case) coordinate_sys = CoordinateSystem::Cartesian;
-    else coordinate_sys = static_cast<CoordinateSystem>(utils->requestInput('i', 1, 2, m[0]));
+    else coordinate_sys = static_cast<CoordinateSystem>(utils->requestInput('i', 1, 2, message[0]));
     
     bool is_homog;
-    if (!is_test_case) is_homog = static_cast<bool>(utils->requestInput('i', 0, 1, m[2]));
+    if (!is_test_case) is_homog = static_cast<bool>(utils->requestInput('i', 0, 1, message[2]));
     else is_homog = true;
 
     std::unique_ptr<Initiation> Heat_2D = std::make_unique<EllipticPDE>(coordinate_sys, is_test_case, is_homog);
@@ -49,5 +54,28 @@ int main () {
     utils->print_matrix(mesh->getMesh());
 
     // TOD: Solve
+    bool solution_method = static_cast<bool>(utils->requestInput('i', 0, 1, message[3]));
+
+    // if (!solution_method) {
+    //     std::unique_ptr<Solver> solver = std::make_unique<LU>(is_test_case);
+    // }
+    // else {
+    //     std::unique_ptr<Solver> solver = std::make_unique<Seidel>(is_test_case);
+    // }
+    
+    std::unique_ptr<Solver> solver = std::make_unique<LU>(is_test_case);
+
+    solver->solve(Heat_2D, mesh);
+    solver->setError(Heat_2D, mesh, domain);
+    // std::cout << "printing solution \n" << std::endl;
+    // utils->print_matrix(solver->getSolution());
+
+    // std::cout << "printing error \n" << std::endl;
+    // utils->print_vector(solver->getError());
+    
     // TODO: post-processing
+    std::unique_ptr<PostProcessing> postproc = std::make_unique<PostProcessing>(Heat_2D,mesh,solver);
+    postproc->printError();
+    postproc->exportResult();
+    postproc->plotResult();
 }

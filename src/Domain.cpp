@@ -1,4 +1,4 @@
-#include "headers/Domain.h"
+#include "./headers/Domain.h"
 
 Domain::Domain(const std::unique_ptr<Initiation>& pde) 
 : _type(pde->getCoordinateSystem())
