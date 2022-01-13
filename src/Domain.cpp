@@ -48,6 +48,8 @@ Domain::Domain(const std::unique_ptr<Initiation>& pde)
             }
         }
     }
+
+    cout << "\n>>Domain successfuly initialized!\n\n";
 }
 
 // Getters

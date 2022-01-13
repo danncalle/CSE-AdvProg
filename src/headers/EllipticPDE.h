@@ -29,6 +29,8 @@ class EllipticPDE : public Initiation {
 
     public:
         EllipticPDE(CoordinateSystem, bool test_case, bool is_homogeneous);
+        
+        // Setting BCs and Inhomogeneous values
         void setBCs ();
         void setInHomogeneous(const std::unique_ptr<Domain>& domain);
         

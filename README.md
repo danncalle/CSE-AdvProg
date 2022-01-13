@@ -184,3 +184,20 @@ After execution of the simulation with all input parameters, a CSV file (`result
 - Node number, 1st coordinate, 2nd coordinate, BC (1/0), T_sim, T_analytic (if test case chosen), error (if test case chosen)
 
 Also, if dependencies are installed correctly, a 3D plot for the simulated temperature values will be generated. Finally, the code outputs to the console the maximum, minimum, and average values of the error percentage. (if the test case option is selected).
+
+## Extending the functunality
+
+Due to the structure of the current implementation, a new feature can be added to extend the functionality of the solver. The following is a list of possible extensions that can be carried out to add more features to the current version:
+
+1. PDE
+    - Hyperbolic, parabolic
+2. More coordinate systems
+    - cylinderical, spherical, barycentric, curvilinear
+3. More shapes for each domain
+    - (triangle, hollow circle/oval, hollow square)
+4. Different meshing strategy
+    - unstructured meshing, triangle meshing (for complex domains),
+5. Different discretiztion scheme
+    - Finite volume
+6. More numerical solvers
+    - Jacobi, Gauss elimination, banded solvers

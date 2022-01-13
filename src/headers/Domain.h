@@ -11,6 +11,7 @@
 
 using std::vector;
 using std::array;
+using std::cout;
 
 // Enum to define the shape to be selected for the domain (will be restricted based on the chosen coordinate)
 enum class Shape {

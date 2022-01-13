@@ -45,8 +45,8 @@ Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>
 }
 
 void Mesh::_generateCartesianMesh (const array<double,2>& dims) {
-    // @ Fill-in the __mesh matrix using the dimensions of the domain and the number of nodes in each direction
-    
+    // @ Fill-in the mesh matrix using the dimensions of the cartesian domain and the number of nodes in each direction
+
     // initialize the values to be used throughout from class members (for better readability of the remaining code)
     double dx = __step_size[0], dy = __step_size[1];
     int n_x = __n_of_nodes[0], n_y = __n_of_nodes[1];
@@ -67,6 +67,8 @@ void Mesh::_generateCartesianMesh (const array<double,2>& dims) {
 }
 
 void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
+    // @ Fill-in the mesh matrix using the dimensions of the polar domain and the number of nodes in each direction
+    
     // initialize the values to be used throughout from class members (for better readability of the remaining code)
     double dr = 0, dt = __step_size[1];
     int n_r = __n_of_nodes[0], n_t = __n_of_nodes[1];
