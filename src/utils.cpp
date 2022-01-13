@@ -40,3 +40,16 @@ vector<vector<double>> vec_2_mat(size_t n_x, size_t n_y, const vector<double>& x
 
 }
 
+// std::ostream &operator << ( std::ostream &out, const vector<double> &v ) {
+//    for ( auto e : v ){
+//        out << e << '\t';
+//    }
+//    return out;
+// }
+
+// std::ostream &operator << ( std::ostream &out, const vector<vector<double>> &M ) {
+//    for ( auto &row : M ){
+//        out << row << '\n';
+//    }
+//    return out;
+// }

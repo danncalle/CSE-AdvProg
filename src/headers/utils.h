@@ -15,5 +15,8 @@ template <typename T> void print_matrix(const T& m);
 
 vector<vector<double>> vec_2_mat(size_t n_x, size_t n_y, const vector<double>& x);
 
+// std::ostream &operator << (std::ostream &out, const vector<double> &v);
+
+// std::ostream &operator << (std::ostream &out, const vector<vector<double>> &M);
 
 #endif

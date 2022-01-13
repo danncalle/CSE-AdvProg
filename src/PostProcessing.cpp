@@ -7,7 +7,7 @@ namespace plt = matplotlibcpp;
 
 using std::cout;
 using std::endl;
-
+// get _sol as a pointer and get the error from the solver object directly 
 PostProcessing::PostProcessing(const std::unique_ptr<Initiation> & pde_type, const std::unique_ptr<Mesh> & mesh, const std::unique_ptr<Solver> & solver)
 : _pde_type(pde_type.get()), _mesh(mesh.get()), _sol(solver->getSolution())
 {

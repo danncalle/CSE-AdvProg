@@ -6,7 +6,7 @@
 EllipticPDE::EllipticPDE(CoordinateSystem coordinate_system, bool test_case, bool is_homogeneous)
 : Initiation(coordinate_system,test_case,is_homogeneous,PDEType::Elliptic)
 {}
-
+// account for continuous functions of heat generation/sink, implemented in an additional file that is read when required by the user
 void EllipticPDE::setInHomogeneous(const std::unique_ptr<Domain>& domain) {
     if(__is_homogeneous || __test_case)
     return;
@@ -41,10 +41,7 @@ void EllipticPDE::setBCs () {
     if(__coordinate_system == CoordinateSystem::Cartesian) {
         if(__test_case) {
             max_n_BCs = 2;
-            _boundary_types.push_back(BoundaryTypes::Dirichlet);
-            _boundary_types[1] = _boundary_types[0];
-            _boundary_types[2] = _boundary_types[0];
-            _boundary_types[3] = _boundary_types[0];
+            for (int i=0;i<4;i++) _boundary_types.push_back(BoundaryTypes::Dirichlet);
             message = {"-Bottom, Left, and Right side value of Temp: ",
                 "-Top side value of Temp: "};
         }
@@ -77,12 +74,12 @@ void EllipticPDE::setBCs () {
     if (__coordinate_system == CoordinateSystem::Polar) {
         message = {"-Circumference BC value: "};
     }
-    else {
-        message = {"-Bottom side BC value (double): ",
-            "-Left side BC value (double): ",
-            "-Right side BC value (double): ",
-            "-Top side BC value (double): "};
-    };
+    // else {
+    //     message = {"-Bottom side BC value (double): ",
+    //         "-Left side BC value (double): ",
+    //         "-Right side BC value (double): ",
+    //         "-Top side BC value (double): "};
+    // };
 // Fix message so that it indicates which boundary and which type of BC it is
     for (int i = 0; i < max_n_BCs; i++) {
         _boundary_values.push_back(utilities->requestInput('d', static_cast<double>(-INFINITY), static_cast<double>(INFINITY), message[i]));

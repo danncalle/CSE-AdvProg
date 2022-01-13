@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/include/python3.8 
+CXX_INCLUDES = -I/usr/include/python3.8 -I/usr/local/include/eigen -isystem /usr/local/include/eigen3 
 

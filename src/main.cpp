@@ -30,7 +30,7 @@ int main () {
     vector<string> message = {"* Please enter desired coordinate system (Cartesian = 1, Polar = 2): ",
                         "* Run test case? (1 or 0): ",
                         "* Would you like to solve for the homogenous case (1 or 0): ",
-                        "* Please enter desired solution method (LU = 0, Gauss-Seidel = 1): "};
+                        "* Please enter desired solution method (LU = 0, LU sparse = 1, Gauss-Seidel = 2): "};
     
     bool is_test_case = static_cast<bool>(utils->requestInput('i', 0, 1, message[1]));
     
@@ -54,16 +54,21 @@ int main () {
     utils->print_matrix(mesh->getMesh());
 
     // TOD: Solve
-    bool solution_method = static_cast<bool>(utils->requestInput('i', 0, 1, message[3]));
-
-    // if (!solution_method) {
-    //     std::unique_ptr<Solver> solver = std::make_unique<LU>(is_test_case);
-    // }
-    // else {
-    //     std::unique_ptr<Solver> solver = std::make_unique<Seidel>(is_test_case);
-    // }
+    int solution_method = utils->requestInput('i', 0, 2, message[3]);
     
-    std::unique_ptr<Solver> solver = std::make_unique<LU>(is_test_case);
+    std::unique_ptr<Solver> solver;
+
+    if (solution_method == 0) {
+        solver = std::make_unique<LU_direct>(is_test_case);
+    }
+    else if (solution_method == 1) {
+        solver = std::make_unique<LU_sparse>(is_test_case);
+    }
+    else {
+        solver = std::make_unique<Seidel>(is_test_case);
+    }
+    
+    // std::unique_ptr<Solver> solver = std::make_unique<LU_direct>(is_test_case);
 
     solver->solve(Heat_2D, mesh);
     solver->setError(Heat_2D, mesh, domain);
