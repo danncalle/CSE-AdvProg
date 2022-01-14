@@ -188,24 +188,29 @@ After execution of the simulation with all input parameters, a CSV file (`result
 
 Also, if dependencies are installed correctly, a 3D plot for the simulated temperature values will be generated. Finally, the code outputs to the console the maximum, minimum, and average values of the error percentage. (if the test case option is selected).
 
-## Extending the functunality
+### Extending the functunality
 
 Due to the structure of the current implementation, a new feature can be added to extend the functionality of the solver. The following is a list of possible extensions that can be carried out to add more features to the current version:
 
-1. Beyond Elliptic PDE Heat equations
+1. **Beyond Elliptic PDE Heat equations**
     - Although the main purpose of this solver is to solve the 2D Poisson's heat equation, it has been implemented with the possibility to solve other types of PDE models in mind. 
     - This can be done by creating a child class of the `Initiation` base class and providing the required paramters to the `Initiation` constructor. 
     - The code is already equipped with three PDE Types (_Elliptic_, _Hyperbolic_, and _Parabolic_) with the Elliptic case being the default value. The pure virtual getter functions must be declared in the new child class. 
-2. More coordinate systems
+2. **More coordinate systems**
     - The current solver considers _Cartesian_ and _Polar_ systems. 
     - This can simply be extended by adding other systems such as cylinderical, spherical, barycentric, or curvilinear to the `CoordinateSystem` enum class defined in `Initiation` header. 
     - The current coordinate systems are being used as part of the workflow logic in different classes and methods (w.o.l.g. setting inhomogenity values or, generally, boundary conditions  in `EllipticPDE`, grid generation in `Mesh`, setting up the system matrix and the RHS `b` vector in `Solver`, possible shapes and domain sizing in `Domain`). Since each coordinate system will need special considerations for the aforementioned examples, the current logic need to be extended for the newly added coordinate system.  
-3. More shapes for each coordinate system
+3. **More shapes for each coordinate system**
     - To add a new domain shape (eg. triangle, hollow circle/oval, or hollow square), each shpae need to be restricted to only a single coordinate system. 
     - If a shape needs to be defined with more than 2 values, the `_major_dimensions` array size needs to be adjusted accordingly in `Domain`. In addition, the number of possible boundary conditions need to be defined using the currently implemented shaapes as an example in the `Domain` constructor. In the `Mesh`, the logic needs to incorporate how to handle the grid generation of this new shape.
-4. Different meshing strategy
+4. **Different meshing strategy**
     - Structured rectangular mesh (consistent step sizes in all dimensions) is the only option being employed in this version of the solver. 
     - To add/define other grid generation schemes such as unstructured mesh or triangle mesh, the `MeshType` enum class can be extended accordingly. The default option of `__mesh_type` is the rectangular structured grid. This can be explicity defined by the user and the program can handle this case independently in `Mesh` constructor. 
     - Any new scheme must always abide by the format of the `__mesh` matrix. Any further information that needs to be stored should be stored in a new matrix/vector (such as the nodes and sides numbers of a certain triangular element), this still needs to be a _protected_ class member.  
-6. More numerical solvers
+6. **More numerical solvers**
     - Besides the implemented classical LU factorization, LU-sparse, and Gauss-Seidel solvers, other direct or iterative solvers can be defined such as Jacobi, Gauss elimination, or banded solver to name a few. TODO
+
+
+### Example Case
+
+TODO
