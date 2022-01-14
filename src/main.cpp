@@ -90,5 +90,10 @@ int main () {
     std::unique_ptr<PostProcessing> postproc = std::make_unique<PostProcessing>(Heat_2D,mesh,solver);
     postproc->printError();
     postproc->exportResult();
-    postproc->plotResult();
+
+    // plot only for the Cartesian case
+    if (Heat_2D->getCoordinateSystem() == CoordinateSystem::Cartesian) {
+        postproc->plotResult();
+    }
+    
 }

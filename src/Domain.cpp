@@ -30,10 +30,12 @@ Domain::Domain(const std::unique_ptr<Initiation>& pde)
 
     // == Polar Case ==
     else if (_type == CoordinateSystem::Polar) {
-        _n_of_boundries = 1;
+        _n_of_boundries = 2;
 
         // convert integer input to Shape enum type by static casting
-        _shape = static_cast<Shape>(utils->requestInput('i',1, 2, "* Enter shape type (Circle = 1, Oval = 2): ")+2);
+        // for simplicity, only a cricle is implemented
+        // _shape = static_cast<Shape>(utils->requestInput('i',1, 1, "* Enter shape type (Circle = 1, Oval = 2): ")+2);
+        _shape = Shape::Circle;
 
         /* -- Circle -- */
         if (_shape == Shape::Circle) {

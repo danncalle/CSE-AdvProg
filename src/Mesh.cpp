@@ -24,14 +24,14 @@ Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>
             /*-- Circle --*/
             if(domain->getShape() == Shape::Circle) {
                 double maxDim = domain->getDimensions()[0];
-                __step_size = {maxDim/(__n_of_nodes[0]-1), 360.0/(__n_of_nodes[1])};
-                __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+                __step_size = {maxDim/(__n_of_nodes[0]+0.5), 360.0/(__n_of_nodes[1])};
+                __total_nodes = ((__n_of_nodes[0])*__n_of_nodes[1]);
             }
             /*-- Oval --*/
             else if(domain->getShape() == Shape::Oval) {
                 double a = domain->getDimensions()[0], b = domain->getDimensions()[1];
                 __step_size[1] = 360.0/__n_of_nodes[1];
-                __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+                __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]);
             }
             
             // invoke the polar meshing function
@@ -83,9 +83,6 @@ void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
         dr = __step_size[0];
         r = dims[0];
     }
-
-    // Initialize center point
-    __mesh.push_back({0, 0, 0});
 
     double theta, theta_rads;
     for (int j = 0; j < n_t; j++) {

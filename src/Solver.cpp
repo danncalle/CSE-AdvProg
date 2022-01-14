@@ -195,8 +195,46 @@ void LU_direct::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
 
         return;
     }
+
+
     else if(pde->getCoordinateSystem() == CoordinateSystem::Polar) {
-        return;
+        int row;
+        int t;
+        std::list<array<int,2>> bc_order_idx {};
+
+        double heat_ss = pde->getHeatSs();
+        array<int,2> nodes = mesh->getNumNodes();
+        size_t no_of_elems = nodes[0]*nodes[1];
+        __b = vector<double> (no_of_elems, 0.0);
+
+        vector<double> bc = pde->getBcs();
+        vector<BoundaryTypes> bc_types = pde->getBcTypes();
+        
+        for (int i=0;i<bc.size(); i++) {
+
+            if (i==0) t = 0;
+            else if(i==1) t = nodes[0]-1;
+
+            if (bc_types[i] == BoundaryTypes::Dirichlet){
+                bc_order_idx.push_back({i,t});
+            }
+            else if (bc_types[i] == BoundaryTypes::Neumann){
+                bc_order_idx.push_front({i,t});
+            }
+        }
+
+        for (auto &elem: bc_order_idx) {
+           
+            int i =  elem[1];
+            if (bc_types[elem[0]] == BoundaryTypes::Dirichlet) {
+                for (int j=0; j< nodes[0];j++) {
+                    row = i + j* nodes[0];
+                    __b[row] = bc[elem[0]];
+                }
+            }
+              
+        }
+
     }
 };
 
@@ -384,8 +422,81 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
         return;
     }
 
+
     else if(pde->getCoordinateSystem() == CoordinateSystem::Polar) {
-        return;
+        int row;
+        int t;
+
+        array<int,2> nodes = mesh->getNumNodes();
+        size_t no_of_elems = nodes[0]*nodes[1];
+        vector<BoundaryTypes> bc_types = pde->getBcTypes();
+        std::list<array<int,2>> bc_order_idx {};
+
+        vector<double> rows (no_of_elems, 0.0);
+        __M = vector<vector<double>> (no_of_elems,rows);
+        __L = vector<vector<double>> (no_of_elems,rows);
+        __U = vector<vector<double>> (no_of_elems,rows);
+
+
+        double dr = mesh->getStepSize()[0];
+        double dt = mesh->getStepSize()[1]; 
+
+        //BCs
+        for (int i=0;i<pde->getBcs().size(); i++) {
+
+            if (i==0) t = 0;
+            else if (i==1) t = nodes[0]-1;
+
+            if (bc_types[i] == BoundaryTypes::Dirichlet){
+                bc_order_idx.push_back({i,t});
+            }
+            else if (bc_types[i] == BoundaryTypes::Neumann){
+                bc_order_idx.push_front({i,t});
+            }
+        }   
+
+        // inner nodes
+        double radius, mu, gamma, nu, delta, row2;
+        for (int i=1; i < nodes[0]-1; i++) {
+            radius = (i+1/2)*dr;
+            mu = (2*radius - dr)/(2*radius*pow(dr,2));
+            gamma = 1/pow(radius*dt,2);
+            nu = (2*radius + dr)/(2*radius*pow(dr,2));
+            delta = -2/pow(dr,2);
+
+            for (int j=0; j < nodes[1]; j++) {
+                row = i + j*nodes[0];
+                __M[row][row] = -2*gamma + delta;
+                __M[row][row-1] = mu;
+                __M[row][row+1] = nu;
+            
+                if (j==nodes[1]-1){
+                    row2 = i;
+                    __M[row][row2] = gamma;
+                }
+                else { __M[row][row+nodes[0]] = gamma; }
+                if (j==0){
+                    row2 = i + (nodes[1]-1)*nodes[0];
+                    __M[row][row2] = gamma;
+                }
+                else{ __M[row][row-nodes[0]] = gamma; }
+            }
+        }  
+        
+        int i;
+        for (auto &elem: bc_order_idx) {
+            // inner most circle nodes & circumference
+            cout << bc_order_idx.size()  <<endl;
+            i =  elem[1];
+            if (bc_types[elem[0]] == BoundaryTypes::Dirichlet) {
+                for (int j=0; j< nodes[1];j++) {
+                    row = i + j* nodes[0];
+                    __M[row] = vector<double> (no_of_elems,0.0);
+                    __M[row][row] = 1;
+                }
+            }
+        }
+
     }   
 };
 

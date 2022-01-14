@@ -92,8 +92,9 @@ void EllipticPDE::setBCs () {
     }
     /* == Polar case == */ 
     else if (__coordinate_system == CoordinateSystem::Polar) {
-        max_n_BCs = 1;
-        message = {"-Circumference BC Type (must be integer, 1 or 2): "};
+        max_n_BCs = 2;
+        message = {"- Inner-most circle BC Type (must be integer, 1 or 2): ",
+                    "- Circumference BC Type (must be integer, 1 or 2):"};
     }
     
     // REQUESTING TYPES OF BCs
@@ -109,7 +110,7 @@ void EllipticPDE::setBCs () {
     else cout << "* For each BC enter the value of Temperature (Dirichlet) or Heat flux (Neumann)." << endl;
     
     if (__coordinate_system == CoordinateSystem::Polar) {
-        message = {"-Circumference BC value: "};
+        message2 = {"-Inner-most circle BC value: ","-Circumference BC value: "};
     }
     for (int i = 0; i < max_n_BCs; i++) {
         _boundary_values.push_back(utilities->requestInput('d', static_cast<double>(-INFINITY), static_cast<double>(INFINITY), message2[i]));
