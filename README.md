@@ -207,10 +207,82 @@ Due to the structure of the current implementation, a new feature can be added t
     - Structured rectangular mesh (consistent step sizes in all dimensions) is the only option being employed in this version of the solver. 
     - To add/define other grid generation schemes such as unstructured mesh or triangle mesh, the `MeshType` enum class can be extended accordingly. The default option of `__mesh_type` is the rectangular structured grid. This can be explicity defined by the user and the program can handle this case independently in `Mesh` constructor. 
     - Any new scheme must always abide by the format of the `__mesh` matrix. Any further information that needs to be stored should be stored in a new matrix/vector (such as the nodes and sides numbers of a certain triangular element), this still needs to be a _protected_ class member.  
-6. **More numerical solvers**
-    - Besides the implemented classical LU factorization, LU-sparse, and Gauss-Seidel solvers, other direct or iterative solvers can be defined such as Jacobi, Gauss elimination, or banded solver to name a few. TODO
+5. **More numerical solvers**
+    - Besides the implemented classical LU factorization, LU-sparse, and Gauss-Seidel solvers, other direct or iterative solvers can be defined such as Jacobi, Gauss elimination, or banded solver to name a few. The current structure of the software suggest that a new solver has the following features:
+        - Private/Protected parameters where the data required for the solver is stored such as a vector for the right-hand side of the system, a matrix for the left-hand side of the system, the maximum number of iterations of a matrix-free solver and the error tolerance of an iterative solver.
+        - Private/Protected methods that set the parameters defined previously as well as intermediate methods necessary for the solution of the system.
+        - A public solve method that solves the system and sets it in the solution parameter of the Solver class. The signature of this method must be:
+            ***void solve(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh)***
+        - A default constructor that takes the parameter test_case as input. The suggested signature of this method is:
+            ***new_solver(const bool test_case)***
+        - Public methods that define the getters desired for the new solver.
 
+### Example Case: test
 
-### Example Case
+Set Test case to: 1
 
-TODO
+Set shape to: 1 (Square)
+
+Set length to: 1
+
+Set Temperature T1, T2, T3 to: 25
+
+Set Temperature T4 to: 100
+
+Set no. of nodes for X direction to: 115
+
+Set no. of nodes for Y direction to: 93
+
+Set solution method to: 1 (LU sparse)
+
+Check `../results/results.csv` file with the details of the results.
+
+<div style="text-align:center">
+    <img src="assets/images/example4.png" alt="Basic test case visualization" width="450">
+</div>
+
+### Example Case: Neumann boundary condition
+
+Set Test case to: 0
+
+Set Coordinate System to: 1 (Cartesian)
+
+Set Homogeneous to: 1
+
+Set shape to: 1 (Square)
+
+Set length to: 1
+
+Set Bottom boundary type to: 2 (Neumann)
+
+Set Left boundary type to: 1 (Dirichlet)
+
+Set Right boundary type to: 1 (Dirichlet)
+
+Set Top boundary type to: 1 (Dirichlet)
+
+Set Bottom heat flux to: 0 (isolated)
+
+Set Left Temperature to: 75
+
+Set Right Temperature to: 50
+
+Set Top Temperature to: 100
+
+Set no. of nodes for X direction to: 5
+
+Set no. of nodes for Y direction to: 5
+
+Set solution method to: 2 (Gauss Seidel)
+
+Set maximum number of iterations to: 100
+
+Set residual error tolerance to: 0.00001
+
+Set relaxation parameter to: 1.5
+
+Check `../results/results.csv` file with the details of the results.
+
+<div style="text-align:center">
+    <img src="assets/images/example3.png" alt="Neumann with Gauss Seidel case visualization" width="450">
+</div>
