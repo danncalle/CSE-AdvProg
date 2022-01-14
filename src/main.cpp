@@ -68,11 +68,11 @@ int main () {
 
     // utils->print_matrix(mesh->getMesh());
 
-    // TODO: Solve
+    // Select the solution method
     int solution_method = utils->requestInput('i', 0, 2, message[3]);
     
+    // Create the solver object
     std::unique_ptr<Solver> solver;
-
     if (solution_method == 0) {
         solver = std::make_unique<LU_direct>(is_test_case);
     }
@@ -83,17 +83,10 @@ int main () {
         solver = std::make_unique<Seidel>(is_test_case);
     }
     
-    // std::unique_ptr<Solver> solver = std::make_unique<LU_direct>(is_test_case);
-
     solver->solve(Heat_2D, mesh);
     solver->setError(Heat_2D, mesh, domain);
-    // std::cout << "printing solution \n" << std::endl;
-    // utils->print_matrix(solver->getSolution());
-
-    // std::cout << "printing error \n" << std::endl;
-    // utils->print_vector(solver->getError());
     
-    // TODO: post-processing
+    // Post-process the solution: printing error if available, saving results and plotting the solution.
     std::unique_ptr<PostProcessing> postproc = std::make_unique<PostProcessing>(Heat_2D,mesh,solver);
     postproc->printError();
     postproc->exportResult();

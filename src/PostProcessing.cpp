@@ -7,7 +7,7 @@ namespace plt = matplotlibcpp;
 
 using std::cout;
 using std::endl;
-// get _sol as a pointer and get the error from the solver object directly 
+
 PostProcessing::PostProcessing(const std::unique_ptr<Initiation> & pde_type, const std::unique_ptr<Mesh> & mesh, const std::unique_ptr<Solver> & solver)
 : _pde_type(pde_type.get()), _mesh(mesh.get()), _sol(solver->getSolution())
 {
@@ -78,7 +78,7 @@ void PostProcessing::exportResult() {
 }
 
 void PostProcessing::printError(){
-    // std::unique_ptr<Utilities> utils = std::make_unique<Utilities>();
+    // @ Print a summary of the error of the numerical against analytical solution if test case is true.
     if(_pde_type->isTestCase()){
         double avg = accumulate(_error.begin(), _error.end(), 0.0) / _error.size();
         cout << "\n-------------------- Error report for Unit test case: ---------------- \n" << endl;
@@ -89,7 +89,6 @@ void PostProcessing::printError(){
     else {
         cout << "\n-------------------- Not a test case, no error output ---------------- \n" << endl;
     }
-    // utils->print_vector(_error);
 }
 
 void PostProcessing::plotResult(){

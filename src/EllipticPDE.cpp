@@ -61,6 +61,7 @@ void EllipticPDE::setBCs () {
 
     // storing messages that will be used in the input requets below
     vector<string> message = {};
+    vector<string> message2 = {};
 
     // no. of BCs based on the shape
     int max_n_BCs = 0;
@@ -81,6 +82,11 @@ void EllipticPDE::setBCs () {
                 "-Left side BC Type (must be integer, 1 or 2): ",
                 "-Right side BC Type (must be integer, 1 or 2): ",
                 "-Top side BC Type (must be integer, 1 or 2): "};
+
+            message2 = {"-Bottom side BC value (double): ",
+                "-Left side BC value (double): ",
+                "-Right side BC value (double): ",
+                "-Top side BC value (double): "};    
         }
         
     }
@@ -105,15 +111,8 @@ void EllipticPDE::setBCs () {
     if (__coordinate_system == CoordinateSystem::Polar) {
         message = {"-Circumference BC value: "};
     }
-    // else {
-    //     message = {"-Bottom side BC value (double): ",
-    //         "-Left side BC value (double): ",
-    //         "-Right side BC value (double): ",
-    //         "-Top side BC value (double): "};
-    // };
-// TODO Fix message so that it indicates which boundary and which type of BC it is
     for (int i = 0; i < max_n_BCs; i++) {
-        _boundary_values.push_back(utilities->requestInput('d', static_cast<double>(-INFINITY), static_cast<double>(INFINITY), message[i]));
+        _boundary_values.push_back(utilities->requestInput('d', static_cast<double>(-INFINITY), static_cast<double>(INFINITY), message2[i]));
     }
 }
 
