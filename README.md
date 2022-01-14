@@ -171,7 +171,7 @@ An updated list for the main user inputs and the corresponding restrictions:
 6. **Boundary condition types** (int, int, int, int)
     - Only two possible options (Dirichlet or Neumann). At least one Dirichlet BC should be specified for a unique solution.
 7.	**Boundary condition values** (double, double, double, double)
-    -	Four temperature or heat source/sink values are required for Dirichlet and Neumman BCs, respectively, according to the diagram below (_BC1_, _BC2_, _BC3_, and _BC4_ for Cartesian domain OR _BC1 and _BC2_ for Polar case). TODO: check
+    -	Four temperature or heat source/sink values are required for Dirichlet and Neumman BCs, respectively, according to the diagram below (_BC1_, _BC2_, _BC3_, and _BC4_ for Cartesian domain OR _BC1 and _BC2_ for Polar case).
 8. **Solver** (int)
     - Current available solvers: classical LU factorization, LU-Sparse, Gauss-Seidel
 
