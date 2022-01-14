@@ -145,21 +145,23 @@ Check `../results/results.csv` file with the details of the results.
 
 
 ## Sprint 2 (v2.0)
-### Introduction
+### What's new?
 
 The solver from Sprint 1 (v1.0) is now extented with more functionality using the OOP structure. The following is a summary of the newly added features:
 
 1. **New coordinate system**, Polar coordinates. Now it's possible to choose from the Cartesian (eg. square, rectangle) or the Polar coordinates (eg. circle or oval).
-2. **Neumann Boundary conditions** (d_u/d_n = constant). The user can now choose either one of either BC types (Dirichlet or Neumann) for each boundary in the problem. Note: at least one Dirichlet boundary condition should be present to arrive at a unique solution.
+2. **Neumann Boundary conditions** (d_u/d_n = constant). The user can now choose either one of BC types (Dirichlet or Neumann) for each boundary in the problem. Note: at least one Dirichlet boundary condition should be present to arrive at a unique solution.
 3. **Inhomogenous problem** (i.e. Poisson's equation).
 4. **New numerical solvers**. 
     - _Special LU_ scheme to utilize the sparse structure of the matrix (much faster than classical)
-    - _Gauss-seidel_ (iterative solver requiring max. number of iterations, relaxation factor, and min value of the residual norm)
+    - _Gauss-seidel_ (iterative solver requiring max number of iterations, relaxation factor, and max value of the residual norm)
 
-The updated list for the main user inputs and the corresponding restrictions:
+### Main user inputs
+
+An updated list for the main user inputs and the corresponding restrictions:
 
 1. **Coordinate system** (int - Cartesian = 1, Polar = 2)
-2. **Domain type** (int - rectangle, sqaure [only one input required], circle, or oval). Each coordinate system restricts the possible domain types to choose from.
+2. **Domain type** (int - rectangle, square [only one input required], circle, or oval). Each coordinate system restricts the possible domain types to choose from.
 3.	**Domain specification** (double, double)
     -	Major dimensions: the width and/or height of the rectangle/square, or the radius (for a circle), or minor and major radii (for oval). Must be greater than 0 and with compatible units.
 4. (for inhomogenous case) **Value and location of heat source/sink** (double, double, double)
@@ -174,12 +176,13 @@ The updated list for the main user inputs and the corresponding restrictions:
     - Current available solvers: classical LU factorization, LU-Sparse, Gauss-Seidel
 
 <div style="text-align:center">
-    <img src="assets/images/generalBCforcartesian.png" alt="General Problem v2.0" width="450">
-    <img src="assets/images/generalBCforcircle.png" alt="General Problem v2.0" width="250">
+    <img src="assets/images/generalBCforcartesian.png" alt="General Problem v2.0" width="350">
+    <img src="assets/images/generalBCforcircle.png" alt="General Problem v2.0" width="200">
     <img src="assets/images/generalBCforoval.png" alt="General Problem v2.0" width="300">
 </div>
 
 ### Outputs
+
 After execution of the simulation with all input parameters, a CSV file (`results.csv`) can be found in the `/results` folder of the project containing all of the information required. The format of this __comma-separated__ file is as follows:
 - Node number, 1st coordinate, 2nd coordinate, BC (1/0), T_sim, T_analytic (if test case chosen), error (if test case chosen)
 
@@ -189,15 +192,20 @@ Also, if dependencies are installed correctly, a 3D plot for the simulated tempe
 
 Due to the structure of the current implementation, a new feature can be added to extend the functionality of the solver. The following is a list of possible extensions that can be carried out to add more features to the current version:
 
-1. PDE
-    - Hyperbolic, parabolic
+1. Beyond Elliptic PDE Heat equations
+    - Although the main purpose of this solver is to solve the 2D Poisson's heat equation, it has been implemented with the possibility to solve other types of PDE models in mind. 
+    - This can be done by creating a child class of the `Initiation` base class and providing the required paramters to the `Initiation` constructor. 
+    - The code is already equipped with three PDE Types (_Elliptic_, _Hyperbolic_, and _Parabolic_) with the Elliptic case being the default value. The pure virtual getter functions must be declared in the new child class. 
 2. More coordinate systems
-    - cylinderical, spherical, barycentric, curvilinear
-3. More shapes for each domain
-    - (triangle, hollow circle/oval, hollow square)
+    - The current solver considers _Cartesian_ and _Polar_ systems. 
+    - This can simply be extended by adding other systems such as cylinderical, spherical, barycentric, or curvilinear to the `CoordinateSystem` enum class defined in `Initiation` header. 
+    - The current coordinate systems are being used as part of the workflow logic in different classes and methods (w.o.l.g. setting inhomogenity values or, generally, boundary conditions  in `EllipticPDE`, grid generation in `Mesh`, setting up the system matrix and the RHS `b` vector in `Solver`, possible shapes and domain sizing in `Domain`). Since each coordinate system will need special considerations for the aforementioned examples, the current logic need to be extended for the newly added coordinate system.  
+3. More shapes for each coordinate system
+    - To add a new domain shape (eg. triangle, hollow circle/oval, or hollow square), each shpae need to be restricted to only a single coordinate system. 
+    - If a shape needs to be defined with more than 2 values, the `_major_dimensions` array size needs to be adjusted accordingly in `Domain`. In addition, the number of possible boundary conditions need to be defined using the currently implemented shaapes as an example in the `Domain` constructor. In the `Mesh`, the logic needs to incorporate how to handle the grid generation of this new shape.
 4. Different meshing strategy
-    - unstructured meshing, triangle meshing (for complex domains),
-5. Different discretiztion scheme
-    - Finite volume
+    - Structured rectangular mesh (consistent step sizes in all dimensions) is the only option being employed in this version of the solver. 
+    - To add/define other grid generation schemes such as unstructured mesh or triangle mesh, the `MeshType` enum class can be extended accordingly. The default option of `__mesh_type` is the rectangular structured grid. This can be explicity defined by the user and the program can handle this case independently in `Mesh` constructor. 
+    - Any new scheme must always abide by the format of the `__mesh` matrix. Any further information that needs to be stored should be stored in a new matrix/vector (such as the nodes and sides numbers of a certain triangular element), this still needs to be a _protected_ class member.  
 6. More numerical solvers
-    - Jacobi, Gauss elimination, banded solvers
+    - Besides the implemented classical LU factorization, LU-sparse, and Gauss-Seidel solvers, other direct or iterative solvers can be defined such as Jacobi, Gauss elimination, or banded solver to name a few. TODO

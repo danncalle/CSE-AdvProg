@@ -5,42 +5,47 @@
 Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>& domain) {
     // use some functionalities from the Utilities class
     std::unique_ptr<Utilities> utils = std::make_unique<Utilities>();
+
+    // Checking the required mesh type
+    /* == Structured Rectangular Mesh == */
+    if (__mesh_type == MeshType::RectangularStructured) {
     
-    vector<string> m = {"* Enter no. of nodes for first direction (integer, >1): ",
-                        "* Enter no. of nodes for second direction (integer, >1): "};
+        vector<string> m = {"* Enter no. of nodes for first direction (integer, >1): ",
+                            "* Enter no. of nodes for second direction (integer, >1): "};
 
-    // requesting the number of nodes in each direction
-    for(int i =0; i < 2; i++) {
-        __n_of_nodes[i] = utils->requestInput('i', 2, static_cast<int>(INFINITY), m[i]);
-    }
+        // requesting the number of nodes in each direction
+        for(int i =0; i < 2; i++) {
+            __n_of_nodes[i] = utils->requestInput('i', 2, static_cast<int>(INFINITY), m[i]);
+        }
 
-    // specify the step size and the total number of nodes depending on the domain coordinate system and the type of the shape
-    /* == Polar case == */
-    if(pde->getCoordinateSystem() == CoordinateSystem::Polar) {
-        /*-- Circle --*/
-        if(domain->getShape() == Shape::Circle) {
-            double maxDim = domain->getDimensions()[0];
-            __step_size = {maxDim/(__n_of_nodes[0]-1), 360.0/(__n_of_nodes[1])};
-            __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+        // specify the step size and the total number of nodes depending on the domain coordinate system and the type of the shape
+        /* == Polar case == */
+        if(pde->getCoordinateSystem() == CoordinateSystem::Polar) {
+            /*-- Circle --*/
+            if(domain->getShape() == Shape::Circle) {
+                double maxDim = domain->getDimensions()[0];
+                __step_size = {maxDim/(__n_of_nodes[0]-1), 360.0/(__n_of_nodes[1])};
+                __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+            }
+            /*-- Oval --*/
+            else if(domain->getShape() == Shape::Oval) {
+                double a = domain->getDimensions()[0], b = domain->getDimensions()[1];
+                __step_size[1] = 360.0/__n_of_nodes[1];
+                __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+            }
+            
+            // invoke the polar meshing function
+            _generatePolarMesh(domain->getDimensions(), domain->getShape());
         }
-        /*-- Oval --*/
-        else if(domain->getShape() == Shape::Oval) {
-            double a = domain->getDimensions()[0], b = domain->getDimensions()[1];
-            __step_size[1] = 360.0/__n_of_nodes[1];
-            __total_nodes = ((__n_of_nodes[0]-1)*__n_of_nodes[1]) + 1;
+        /* == Cartesian case == */
+        else if (pde->getCoordinateSystem() == CoordinateSystem::Cartesian) {
+            array<double,2> maxDims = domain->getDimensions();
+            __step_size = {maxDims[0]/(__n_of_nodes[0]-1), maxDims[1]/(__n_of_nodes[1]-1)};
+            __total_nodes = __n_of_nodes[0]*__n_of_nodes[1];
+            
+            // invoke the cartesian meshing function
+            _generateCartesianMesh(maxDims);
         }
-        
-        // invoke the polar meshing function
-        _generatePolarMesh(domain->getDimensions(), domain->getShape());
-    }
-    /* == Cartesian case == */
-    else if (pde->getCoordinateSystem() == CoordinateSystem::Cartesian) {
-        array<double,2> maxDims = domain->getDimensions();
-        __step_size = {maxDims[0]/(__n_of_nodes[0]-1), maxDims[1]/(__n_of_nodes[1]-1)};
-        __total_nodes = __n_of_nodes[0]*__n_of_nodes[1];
-        
-        // invoke the cartesian meshing function
-        _generateCartesianMesh(maxDims);
     }
 }
 
@@ -68,7 +73,7 @@ void Mesh::_generateCartesianMesh (const array<double,2>& dims) {
 
 void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
     // @ Fill-in the mesh matrix using the dimensions of the polar domain and the number of nodes in each direction
-    
+
     // initialize the values to be used throughout from class members (for better readability of the remaining code)
     double dr = 0, dt = __step_size[1];
     int n_r = __n_of_nodes[0], n_t = __n_of_nodes[1];
