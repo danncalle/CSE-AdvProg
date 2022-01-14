@@ -24,8 +24,8 @@ Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>
             /*-- Circle --*/
             if(domain->getShape() == Shape::Circle) {
                 double maxDim = domain->getDimensions()[0];
-                __step_size = {maxDim/(__n_of_nodes[0]+0.5), 360.0/(__n_of_nodes[1])};
-                __total_nodes = ((__n_of_nodes[0])*__n_of_nodes[1]);
+                __step_size = {maxDim/(__n_of_nodes[0]-0.5), 360.0/(__n_of_nodes[1])};
+                __total_nodes = ((__n_of_nodes[0]+1)*__n_of_nodes[1]);
             }
             /*-- Oval --*/
             else if(domain->getShape() == Shape::Oval) {
@@ -97,9 +97,9 @@ void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
 
         // Specify if the node is at the boundary or not (if yes, then directly used the x or y values)
         // Specify the coordinates of the current node
-        for (int i = 1; i < n_r; i++) {
+        for (int i = 0; i < n_r; i++) {
             if (i == n_r - 1) __mesh.push_back({1,r,theta});
-            else __mesh.push_back({0, i*dr, theta});
+            else __mesh.push_back({0, (i+0.5)*dr, theta});
 
         }
     }
