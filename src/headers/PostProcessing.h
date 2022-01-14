@@ -18,12 +18,12 @@ using std::array;
 class PostProcessing {
     private:
         // vector<vector<double>> _mesh;
-        vector<vector<double>> _sol;  //col 1: t_num, col 2: t_anal, col 3: error
+        vector<vector<double>> _sol;
 
-        Mesh* _mesh;
-        Initiation* _pde_type;
+        Mesh* _mesh;    // raw pointer to the mesh domain
+        Initiation* _pde_type; // raw pointer to the chosen pde type
 
-        vector<double> _error;
+        vector<double> _error; //error vector to be calculated for test case
 
     public:
         PostProcessing(const std::unique_ptr<Initiation> &,

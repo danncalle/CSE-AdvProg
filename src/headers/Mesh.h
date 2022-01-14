@@ -13,11 +13,18 @@ using std::array;
 using std::vector;
 using std::array;
 
+enum class MeshType {
+    RectangularStructured = 1,
+    RectangularUnstructured = 2,
+    Triangular = 1
+};
+
 class Mesh {
     protected:
         array<int,2> __n_of_nodes ={0,0};
         array<double, 2> __step_size = {0,0};
         size_t __total_nodes;
+        MeshType __mesh_type = MeshType::RectangularStructured; 
 
         vector<vector<double>> __mesh;
 

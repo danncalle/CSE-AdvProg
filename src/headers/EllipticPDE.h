@@ -29,14 +29,17 @@ class EllipticPDE : public Initiation {
 
     public:
         EllipticPDE(CoordinateSystem, bool test_case, bool is_homogeneous);
+        
+        // Setting BCs and Inhomogeneous values
         void setBCs ();
         void setInHomogeneous(const std::unique_ptr<Domain>& domain);
         
-        vector<BoundaryTypes> getBcTypes();
-        vector<double> getBcs();
-        double getHeatSs();
-        double getK();
-        array<double,2> getHeatSsLoc();
+        // Getters
+        vector<BoundaryTypes> getBcTypes() const;
+        vector<double> getBcs() const;
+        double getHeatSs() const;
+        double getK() const;
+        array<double,2> getHeatSsLoc() const;
 };
 
 #endif

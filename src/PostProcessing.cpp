@@ -28,7 +28,7 @@ PostProcessing::PostProcessing(const std::unique_ptr<Initiation> & pde_type, con
 
 
 void PostProcessing::exportResult() {
-    // Save all results collected from all previous computations to a csv file
+    // @ Save all results collected from all previous computations to a csv file
 
     // get the size of the system
     const size_t rows = _mesh->getMesh().size();
@@ -42,7 +42,6 @@ void PostProcessing::exportResult() {
     if(!resultfile) {
         cout << "Couldn't establish connection to file system. Saving aborted!" << endl;
         return;
-
     }
 
     // Table headers
@@ -74,7 +73,7 @@ void PostProcessing::exportResult() {
 
     // close the file stream and ouput termination message
     resultfile.close();
-    cout << "\n-------------\nComputation done!\n";
+    cout << "\n-------------\nSaving is done!\n";
     cout << "Results can be found in results/results.csv file!\n";
 }
 
@@ -94,7 +93,7 @@ void PostProcessing::printError(){
 }
 
 void PostProcessing::plotResult(){
-    // using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
+    // @ Using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
 
     // initialize the x, y, and z matrices (and their corresponding rows)
     array<double,2> step = _mesh->getStepSize();
