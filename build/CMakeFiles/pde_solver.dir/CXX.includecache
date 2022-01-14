@@ -6,9 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp
-./headers/Solver.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Solver.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp
+./headers/Initiation.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Initiation.h
+./headers/EllipticPDE.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/EllipticPDE.h
+./headers/Utilities.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
+./headers/Domain.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
 
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
 vector
@@ -49,46 +55,6 @@ vector
 -
 array
 -
-
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Mesh.h
-array
--
-vector
--
-memory
--
-array
--
-Initiation.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Initiation.h
-Domain.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
-
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Solver.h
-iostream
--
-fstream
--
-sstream
--
-vector
--
-math.h
--
-cmath
--
-algorithm
--
-numeric
--
-memory
--
-eigen3/Eigen/Sparse
--
-Utilities.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
-Mesh.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Mesh.h
 
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
 iostream

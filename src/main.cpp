@@ -51,7 +51,7 @@ int main () {
     Heat_2D->setBCs();
     std::unique_ptr<Mesh> mesh = std::make_unique<Mesh>(Heat_2D, domain);
 
-    utils->print_matrix(mesh->getMesh());
+    // utils->print_matrix(mesh->getMesh());
 
     // TOD: Solve
     int solution_method = utils->requestInput('i', 0, 2, message[3]);

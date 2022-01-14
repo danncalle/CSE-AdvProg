@@ -25,8 +25,7 @@ enum class SolverType {
     LU_sp = 2,
     Gauss_Seidel = 3
 };
-// Only have the setupRHS and setupMatrix in the LU solver class
-// Give the user to load the LU matrix for a problem and we change the RHS and solve it.
+
 class Solver {
     protected:
         const SolverType __solver_type;
@@ -71,18 +70,12 @@ class LU_sparse : public Solver{
     protected:
         VectorXd __b;
         SparseMatrix<double> __M;
-        // SparseMatrix<double> __L;
-        // SparseMatrix<double> __U;
-        // SparseMatrix<double> __D;
 
         void setupRhs(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh);
         void setupMatrix(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh);
 
     public:
         LU_sparse(const bool test_case);
-
-        // void writeLU();
-        // void loadLU();
 
         void solve(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh);
 };
