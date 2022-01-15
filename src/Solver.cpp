@@ -440,7 +440,7 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
 
         double dr = mesh->getStepSize()[0];
         double dt = mesh->getStepSize()[1]; 
-
+        
         //BCs
         for (int i=0;i<pde->getBcs().size(); i++) {
 
@@ -458,7 +458,7 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
         // inner nodes
         double radius, mu, gamma, nu, delta, row2;
         for (int i=1; i < nodes[0]-1; i++) {
-            radius = (i+1/2)*dr;
+            radius = (i+0.5)*dr;
             mu = (2*radius - dr)/(2*radius*pow(dr,2));
             gamma = 1/pow(radius*dt,2);
             nu = (2*radius + dr)/(2*radius*pow(dr,2));
@@ -482,11 +482,11 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else{ __M[row][row-nodes[0]] = gamma; }
             }
         }  
+
         
         int i;
         for (auto &elem: bc_order_idx) {
             // inner most circle nodes & circumference
-            cout << bc_order_idx.size()  <<endl;
             i =  elem[1];
             if (bc_types[elem[0]] == BoundaryTypes::Dirichlet) {
                 for (int j=0; j< nodes[1];j++) {
@@ -518,7 +518,6 @@ void LU_direct::LUFactorization() {
             }
             __L[i][k] = (__M[i][k] - sum)/__U[k][k];
         }
-
         __L[i][i] = 1;
 
         for (int k = 0; k < N; k++) {

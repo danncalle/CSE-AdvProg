@@ -45,9 +45,9 @@ int main () {
     else coordinate_sys = static_cast<CoordinateSystem>(utils->requestInput('i', 1, 2, message[0]));
     
     // Define Laplace or Poisson's Equation
-    // Test case is limited to the Homogeneous case only
+    // Test case AND polar case are limited to the Homogeneous case only for simplicity
     bool is_homog;
-    if (!is_test_case) is_homog = static_cast<bool>(utils->requestInput('i', 0, 1, message[2]));
+    if (!(is_test_case || coordinate_sys == CoordinateSystem::Polar)) is_homog = static_cast<bool>(utils->requestInput('i', 0, 1, message[2]));
     else is_homog = true;
 
     // By default, initialize Elliptic PDE problem.
@@ -57,7 +57,7 @@ int main () {
     // Initialize the Domain
     std::unique_ptr<Domain> domain = std::make_unique<Domain>(Heat_2D);
     
-    // If inhomoenity is specified, then define the respective values
+    // If inhomogenity is specified, then define the respective values
     if(!is_homog) Heat_2D->setInHomogeneous(domain);
 
     // Define the types and values of the boundary conditions
@@ -69,7 +69,15 @@ int main () {
     // utils->print_matrix(mesh->getMesh());
 
     // Select the solution method
-    int solution_method = utils->requestInput('i', 0, 2, message[3]);
+    int solution_method;
+        // classic LU solver only implemented for the polar case
+    if(Heat_2D->getCoordinateSystem() != CoordinateSystem::Polar) {
+        solution_method = utils->requestInput('i', 0, 2, message[3]);
+    }
+    else {
+        solution_method = 0;
+    }
+    
     
     // Create the solver object
     std::unique_ptr<Solver> solver;
@@ -91,8 +99,8 @@ int main () {
     postproc->printError();
     postproc->exportResult();
 
-    // plot only for the Cartesian case
-    if (Heat_2D->getCoordinateSystem() == CoordinateSystem::Cartesian) {
+    // don't plot for the oval case
+    if (!(domain->getShape() == Shape::Oval)) {
         postproc->plotResult();
     }
     

@@ -25,7 +25,7 @@ Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>
             if(domain->getShape() == Shape::Circle) {
                 double maxDim = domain->getDimensions()[0];
                 __step_size = {maxDim/(__n_of_nodes[0]-0.5), 360.0/(__n_of_nodes[1])};
-                __total_nodes = ((__n_of_nodes[0]+1)*__n_of_nodes[1]);
+                __total_nodes = ((__n_of_nodes[0])*__n_of_nodes[1]);
             }
             /*-- Oval --*/
             else if(domain->getShape() == Shape::Oval) {
@@ -85,21 +85,27 @@ void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
     }
 
     double theta, theta_rads;
+    double x, y;
+    
     for (int j = 0; j < n_t; j++) {
         theta = j*dt;
+        theta_rads = (theta*M_PI)/180.0;
 
         // for the oval shape, the radius changes at each theta. update the radius and the radius step size for each theta
         if(shape == Shape::Oval) {
-            theta_rads = (theta*M_PI)/180.0;
             r = dims[0]*dims[1]/sqrt(pow(dims[1]*cos(theta_rads), 2)+pow(dims[0]*sin(theta_rads), 2));
             dr = r/(__n_of_nodes[0]-1);
         }
 
         // Specify if the node is at the boundary or not (if yes, then directly used the x or y values)
         // Specify the coordinates of the current node
+        
         for (int i = 0; i < n_r; i++) {
-            if (i == n_r - 1) __mesh.push_back({1,r,theta});
-            else __mesh.push_back({0, (i+0.5)*dr, theta});
+            // convert from polar to cartesian for plotting
+            x = (i+0.5)*dr*cos(theta_rads);
+            y = (i+0.5)*dr*sin(theta_rads);
+            if (i == n_r - 1) __mesh.push_back({1,r*cos(theta_rads), r*sin(theta_rads)});
+            else __mesh.push_back({0, x, y});
 
         }
     }

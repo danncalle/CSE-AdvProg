@@ -93,7 +93,7 @@ void PostProcessing::printError(){
 
 void PostProcessing::plotResult(){
     // @ Using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
-
+    
     // initialize the x, y, and z matrices (and their corresponding rows)
     array<double,2> step = _mesh->getStepSize();
     array<int,2> nodes = _mesh->getNumNodes();
@@ -104,19 +104,42 @@ void PostProcessing::plotResult(){
 
     for (int i = 0; i < nodes[1];  i++) {
         x_row = {}, y_row = {}, z_row = {};
-        
         for (int j = 0; j < nodes[0]; j++) {
             // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
-            x_row.push_back(step[0]*j);
-            y_row.push_back(step[1]*i);            
+            
+            x_row.push_back(_mesh->getMesh()[counter][1]);
+            y_row.push_back(_mesh->getMesh()[counter][2]);      
             z_row.push_back(_sol[0][counter]);
+            
             counter++;
         }
+         
         // add these rows to the respective matrices
         x.push_back(x_row);
         y.push_back(y_row);
         z.push_back(z_row);
     }
+
+
+    // repeat the first row of the solution to close the circle for the polar case 
+    if(_pde_type->getCoordinateSystem() == CoordinateSystem::Polar) {
+        counter = 0;
+        x_row = {}, y_row = {}, z_row = {};
+        for (int j = 0; j < nodes[0]; j++) {
+            // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
+            
+            x_row.push_back(_mesh->getMesh()[counter][1]);
+            y_row.push_back(_mesh->getMesh()[counter][2]);
+            z_row.push_back(_sol[0][counter]);
+            
+            counter++;
+        }
+    }
+    
+
+    x.push_back(x_row);
+    y.push_back(y_row);
+    z.push_back(z_row);
 
     // plot and show the generated surface
     plt::plot_surface(x, y, z);
