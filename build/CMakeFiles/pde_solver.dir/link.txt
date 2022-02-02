@@ -1,1 +1,0 @@
-/usr/bin/g++    -rdynamic CMakeFiles/pde_solver.dir/main.cpp.o CMakeFiles/pde_solver.dir/Initiation.cpp.o CMakeFiles/pde_solver.dir/Domain.cpp.o CMakeFiles/pde_solver.dir/EllipticPDE.cpp.o CMakeFiles/pde_solver.dir/Mesh.cpp.o CMakeFiles/pde_solver.dir/Solver.cpp.o CMakeFiles/pde_solver.dir/PostProcessing.cpp.o  -o pde_solver  -lpython3.8 

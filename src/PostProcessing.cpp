@@ -100,8 +100,11 @@ void PostProcessing::plotResult(){
 
     size_t counter = 0;
     vector<vector<double>> x, y, z;
-    vector<double> x_row = {}, y_row = {}, z_row = {};
-
+    vector<double> x_row , y_row , z_row;
+    // x_row.reserve(nodes[1]*nodes[0]);
+    // y_row.reserve(nodes[1]*nodes[0]);
+    // z_row.reserve(nodes[1]*nodes[0]);
+    
     for (int i = 0; i < nodes[1];  i++) {
         x_row = {}, y_row = {}, z_row = {};
         for (int j = 0; j < nodes[0]; j++) {

@@ -72,7 +72,7 @@ void EllipticPDE::setBCs () {
         if(__test_case) {
             max_n_BCs = 2;
             for (int i=0;i<4;i++) _boundary_types.push_back(BoundaryTypes::Dirichlet);
-            message = {"-Bottom, Left, and Right side value of Temp: ",
+            message2 = {"-Bottom, Left, and Right side value of Temp: ",
                 "-Top side value of Temp: "};
         }
         /*-- square/rectangle -- */
