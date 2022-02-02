@@ -9,6 +9,7 @@
 #include "./headers/Solver.h"
 #include "./headers/PostProcessing.h"
 
+
 void initiateProgram () {
     // Print  welcome message and problem description
 
@@ -103,13 +104,12 @@ int main () {
     auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "** Solver Elapsed time: " << elapsed_time.count() << " ms" << std::endl;
 
-
     start = std::chrono::system_clock::now();
     // Post-process the solution: printing error if available, saving results and plotting the solution.
     std::unique_ptr<PostProcessing> postproc = std::make_unique<PostProcessing>(Heat_2D,mesh,solver);
     postproc->printError();
     postproc->exportResult();
-
+    
     // don't plot for the oval case
     if (!(domain->getShape() == Shape::Oval)) {
         postproc->plotResult();

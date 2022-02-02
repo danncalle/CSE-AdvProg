@@ -47,6 +47,8 @@ Mesh::Mesh(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Domain>
             _generateCartesianMesh(maxDims);
         }
     }
+
+    _saveMeshTranspose();
 }
 
 void Mesh::_generateCartesianMesh (const array<double,2>& dims) {
@@ -111,8 +113,25 @@ void Mesh::_generatePolarMesh (const array<double,2>& dims, Shape shape) {
     }
 }
 
+void Mesh::_saveMeshTranspose () {
+    size_t nRows = __mesh.size();
+    size_t nCols = __mesh[0].size();
+
+    vector<double> row (nRows,0); 
+
+    __trans_mesh.reserve(nCols);
+
+    for (size_t i = 0; i < nCols; i++) {
+        for (size_t j = 0; j < nRows; j++) {
+            row[j] = __mesh[j][i];
+        }
+        __trans_mesh.push_back(row);
+    }
+}
+
 // Getters
 vector<vector<double>> Mesh::getMesh() const {return __mesh;}
+vector<vector<double>> Mesh::getTransMesh() const {return __trans_mesh;}
 array<int,2> Mesh::getNumNodes() const {return __n_of_nodes;}
 array<double,2> Mesh::getStepSize() const {return __step_size;}
 size_t Mesh::getTotalNodes() const {return __total_nodes;}
