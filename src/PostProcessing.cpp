@@ -100,7 +100,7 @@ void PostProcessing::plotResult(){
 
     size_t counter = 0;
     vector<vector<double>> x, y, z;
-    vector<double> x_row {}, y_row {}, z_row{};
+    vector<double> x_row = {}, y_row = {}, z_row = {};
     
     
     for (int i = 0; i < nodes[1];  i++) {
@@ -144,6 +144,6 @@ void PostProcessing::plotResult(){
 
     // plot and show the generated surface
     plt::plot_surface(x, y, z);
-    plt::show();
+    // plt::show();
 
 }
