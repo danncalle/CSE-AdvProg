@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp
+./headers/Initiation.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Initiation.h
+./headers/EllipticPDE.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/EllipticPDE.h
+./headers/Utilities.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
+./headers/Domain.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
+
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp
+./headers/Mesh.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Mesh.h
+algorithm
+-
+
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/PostProcessing.cpp
 iostream
 -
@@ -13,6 +29,10 @@ fstream
 -
 ./headers/PostProcessing.h
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/PostProcessing.h
+
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Solver.cpp
+./headers/Solver.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Solver.h
 
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/external/matplotlibcpp.h
 Python.h
@@ -151,6 +171,26 @@ limits
 -
 math.h
 -
+
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/main.cpp
+iostream
+-
+chrono
+-
+./headers/Utilities.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
+./headers/Initiation.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Initiation.h
+./headers/EllipticPDE.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/EllipticPDE.h
+./headers/Domain.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
+./headers/Mesh.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Mesh.h
+./headers/Solver.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Solver.h
+./headers/PostProcessing.h
+/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/PostProcessing.h
 
 /usr/include/python3.8/Python.h
 patchlevel.h

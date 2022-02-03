@@ -12,30 +12,28 @@ PostProcessing::PostProcessing(const std::unique_ptr<Initiation> & pde_type, con
 : _pde_type(pde_type.get()), _mesh(mesh.get()), _sol(solver->getSolution())
 {
     if(_pde_type->isTestCase()) {
-        // int N = _sol[0].size();
-        // _error = vector<double> (N, 0);
+        int N = _sol[0].size();
+        _error = vector<double> (N, 0);
 
-        // for (int i = 0; i < N; i++) {
-        //     if (abs(_sol[1][i]) > pow(10,-14)) {
-        //         _error[i] = abs(_sol[1][i] - _sol[0][i])/abs(_sol[1][i]);
-        //     }
-        //     else {
-        //         _error[i] = 0;
-        //     }
-        // }    
-        _error = solver->getError();
+        for (int i = 0; i < N; i++) {
+            if (abs(_sol[1][i]) > pow(10,-14)) {
+                _error[i] = abs(_sol[1][i] - _sol[0][i])/abs(_sol[1][i]);
+            }
+            else {
+                _error[i] = 0;
+            }
+        }    
     }
 }
 
-// Improve in general the way that memory is accessed here. Is there something to improve for performance?
-// This is one function where more resources are consumed.
 
 void PostProcessing::exportResult() {
     // @ Save all results collected from all previous computations to a csv file
+    const auto& mesh = _mesh->getMesh();
 
     // get the size of the system
-    const size_t rows = _mesh->getMesh().size();
-    const size_t mesh_cols = _mesh->getMesh()[0].size();
+    const size_t rows = mesh.size();
+    const size_t mesh_cols = mesh[0].size();
 
     // Open file stream and create output "results.csv" file
     std::ofstream resultfile;
@@ -61,7 +59,7 @@ void PostProcessing::exportResult() {
         resultfile << i+1;
         // mesh details
         for (size_t j = 0; j < mesh_cols; j++) {
-            resultfile << "," << _mesh->getMesh()[i][j];
+            resultfile << "," << mesh[i][j];
         }
         // temperature values from the numerical computation
         resultfile << "," << _sol[0][i];
@@ -81,8 +79,6 @@ void PostProcessing::exportResult() {
 }
 
 void PostProcessing::printError(){
-    Utilities utils;
-    utils.print_vector(_error);
     // @ Print a summary of the error of the numerical against analytical solution if test case is true.
     if(_pde_type->isTestCase()){
         double avg = accumulate(_error.begin(), _error.end(), 0.0) / _error.size();
@@ -96,32 +92,32 @@ void PostProcessing::printError(){
     }
 }
 
-
-// Improve in general the way that memory is accessed here. Is there something to improve for performance?
-
 void PostProcessing::plotResult(){
     // @ Using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
     
     // initialize the x, y, and z matrices (and their corresponding rows)
-    array<double,2> step = _mesh->getStepSize();
-    array<int,2> nodes = _mesh->getNumNodes();
+    const array<double,2> step = _mesh->getStepSize();
+    const array<int,2> nodes = _mesh->getNumNodes();
+    const auto& mesh = _mesh->getTransMesh();
 
     size_t counter = 0;
+    
     vector<vector<double>> x, y, z;
-    vector<double> x_row = {}, y_row = {}, z_row = {};
+    x.reserve(nodes[1]);
+    y.reserve(nodes[1]);
+    z.reserve(nodes[1]);
 
+    vector<double> x_row (nodes[0], 0), y_row (nodes[0], 0), z_row (nodes[0], 0);
+    
     for (int i = 0; i < nodes[1];  i++) {
-        x_row = {}, y_row = {}, z_row = {};
         for (int j = 0; j < nodes[0]; j++) {
             // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
-            
-            x_row.push_back(_mesh->getMesh()[counter][1]);
-            y_row.push_back(_mesh->getMesh()[counter][2]);      
-            z_row.push_back(_sol[0][counter]);
+            x_row[j] = mesh[1][counter];
+            y_row[j] = mesh[2][counter];      
+            z_row[j] = _sol[0][counter];
             
             counter++;
         }
-         
         // add these rows to the respective matrices
         x.push_back(x_row);
         y.push_back(y_row);
@@ -136,18 +132,20 @@ void PostProcessing::plotResult(){
         for (int j = 0; j < nodes[0]; j++) {
             // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
             
-            x_row.push_back(_mesh->getMesh()[counter][1]);
-            y_row.push_back(_mesh->getMesh()[counter][2]);
-            z_row.push_back(_sol[0][counter]);
+            x_row[counter] = mesh[1][counter];
+            y_row[counter] = mesh[2][counter];      
+            z_row[counter] = _sol[0][counter];
             
             counter++;
         }
+
+        x.push_back(x_row);
+        y.push_back(y_row);
+        z.push_back(z_row);
     }
     
 
-    x.push_back(x_row);
-    y.push_back(y_row);
-    z.push_back(z_row);
+    
 
     // plot and show the generated surface
     plt::plot_surface(x, y, z);
