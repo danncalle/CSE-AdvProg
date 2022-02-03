@@ -6,16 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/EllipticPDE.cpp
-./headers/Initiation.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Initiation.h
-./headers/EllipticPDE.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/EllipticPDE.h
-./headers/Utilities.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Utilities.h
-./headers/Domain.h
-/home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Domain.h
-
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/Mesh.cpp
 ./headers/Mesh.h
 /home/dcalle/Documents/CSE/AdvProg/PDE_project/pde-solver-dy/src/headers/Mesh.h
