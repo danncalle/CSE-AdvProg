@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include "./headers/Utilities.h"
 #include "./headers/Initiation.h"
@@ -7,6 +8,7 @@
 #include "./headers/Mesh.h"
 #include "./headers/Solver.h"
 #include "./headers/PostProcessing.h"
+
 
 void initiateProgram () {
     // Print  welcome message and problem description
@@ -91,17 +93,28 @@ int main () {
         solver = std::make_unique<Seidel>(is_test_case);
     }
     
+    std::chrono::time_point<std::chrono::system_clock> start;
+    std::chrono::time_point<std::chrono::system_clock> end;
+    
+    start = std::chrono::system_clock::now();
     solver->solve(Heat_2D, mesh);
     solver->setError(Heat_2D, mesh, domain);
+    end = std::chrono::system_clock::now();
     
+    auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "** Solver Elapsed time: " << elapsed_time.count() << " ms" << std::endl;
+
+    start = std::chrono::system_clock::now();
     // Post-process the solution: printing error if available, saving results and plotting the solution.
     std::unique_ptr<PostProcessing> postproc = std::make_unique<PostProcessing>(Heat_2D,mesh,solver);
     postproc->printError();
     postproc->exportResult();
-
+    
     // don't plot for the oval case
     if (!(domain->getShape() == Shape::Oval)) {
         postproc->plotResult();
     }
-    
+    end = std::chrono::system_clock::now();
+    elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    std::cout << "** Post-processing Elapsed time: " << elapsed_time.count() << " ms" << std::endl;
 }

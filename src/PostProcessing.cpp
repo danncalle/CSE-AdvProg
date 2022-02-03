@@ -151,6 +151,6 @@ void PostProcessing::plotResult(){
 
     // plot and show the generated surface
     plt::plot_surface(x, y, z);
-    plt::show();
+    // plt::show();
 
 }
