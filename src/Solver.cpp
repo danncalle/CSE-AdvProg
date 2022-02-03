@@ -258,6 +258,8 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
 
         vector<double> rows (no_of_elems, 0.0);
         __M = vector<vector<double>> (no_of_elems,rows);
+        __L = vector<vector<double>> (no_of_elems, vector<double> {});
+        __U = vector<vector<double>> (no_of_elems, vector<double> {});
 
         double dx = mesh->getStepSize()[0];
         double dy = mesh->getStepSize()[1];
@@ -504,8 +506,6 @@ void LU_direct::LUFactorization() {
 
     const int N = __M.size();
     double sum;
-    __L = vector<vector<double>> (N, vector<double> {});
-    __U = vector<vector<double>> (N, vector<double> {});
 
 // Calculate elements of L and then elements of U 
     for (int i = 0; i < N; i++) {
