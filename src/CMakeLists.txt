@@ -7,4 +7,4 @@ target_include_directories(pde_solver PRIVATE /usr/include/python3.8 /usr/local/
 target_link_libraries(pde_solver -lpython3.8 Eigen3::Eigen)
 
 target_compile_options(pde_solver PUBLIC -fno-omit-frame-pointer)
-set (CMAKE_CXX_FLAGS "-O0")
+set (CMAKE_CXX_FLAGS "-O0 -pg")

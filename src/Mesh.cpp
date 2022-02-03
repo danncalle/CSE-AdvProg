@@ -57,7 +57,12 @@ void Mesh::_generateCartesianMesh (const array<double,2>& dims) {
     int n_x = __n_of_nodes[0], n_y = __n_of_nodes[1];
     double x = dims[0], y = dims[1];
     
-    
+
+// Improve this cycle by:
+// Removing if statements by splitting the for cycles
+// Is there something to think about memory access?
+// Code for vectorization (check according to lecture)
+
     for (int j = 0; j < n_y; j++) {
         for (int i = 0; i < n_x; i++) {   
             // Specify if the node is at the boundary or not (if yes, then directly used the x or y values)

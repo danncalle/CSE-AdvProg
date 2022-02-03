@@ -59,7 +59,7 @@ void EllipticPDE::setBCs () {
     // use some functionalities from the Utilities class
     std::unique_ptr<Utilities> utilities = std::make_unique<Utilities>();
 
-    // storing messages that will be used in the input requets below
+    // storing messages that will be used in the input requests below
     vector<string> message = {};
     vector<string> message2 = {};
 

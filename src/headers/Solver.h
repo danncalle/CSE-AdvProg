@@ -30,8 +30,8 @@ class Solver {
     protected:
         const SolverType __solver_type;
         const bool __test_case;
-        vector<vector<double>> __solution {{},{}};
-        vector<double> __error {};
+        vector<vector<double>> __solution;
+        vector<double> __error;
 
         void solve_analytical(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh, const std::unique_ptr<Domain>& domain);
     public:

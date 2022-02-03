@@ -5,6 +5,8 @@
 Solver::Solver(SolverType solver_type, bool test_case):
 __solver_type(solver_type), __test_case(test_case) {
     cout << "Solver initiated correctly\n";
+    __solution = {{},{}};
+    __error = {};
 };
 
 /* Get method for error parameter of the solver class. Only takes values when test_case is true.
@@ -31,7 +33,7 @@ void Solver::solve_analytical(const std::unique_ptr<Initiation>& pde, const std:
         double H = domain->getDimensions()[1];
 
         __solution[1] = vector<double>(no_of_nodes,0);
-        vector<vector<double>> mesh_matrix = mesh->getMesh();
+        const vector<vector<double>>& mesh_matrix = mesh->getMesh();
         double f_sum = 0;
 
         for (int i = 0; i<no_of_nodes; i++) {
@@ -66,10 +68,7 @@ void Solver::solve_analytical(const std::unique_ptr<Initiation>& pde, const std:
 /* Set method to calculate the relative error of the numerical solution compared to the analytical solution. Is empty when test_case is false.
 */
 void Solver::setError(const std::unique_ptr<Initiation>& pde, const std::unique_ptr<Mesh>& mesh, const std::unique_ptr<Domain>& domain){
-    if(!__test_case){
-        __error = {};
-        return;
-    }
+    if(!__test_case){return;}
     else {
         solve_analytical(pde, mesh, domain);
         int N = __solution[0].size();
@@ -84,6 +83,7 @@ void Solver::setError(const std::unique_ptr<Initiation>& pde, const std::unique_
                 __error[i] = 0;
             }
         }
+        std::cout << "\nError calculation finished" << "\n";
 
         return;
     }
@@ -111,6 +111,7 @@ void LU_direct::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
 
         double heat_ss = pde->getHeatSs();
         array<int,2> nodes = mesh->getNumNodes();
+        array<double,2> step = mesh->getStepSize();
         size_t no_of_elems = nodes[0]*nodes[1];
         __b = vector<double> (no_of_elems, 0.0);
 
@@ -160,7 +161,7 @@ void LU_direct::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
                 else {
                     for (int i=0; i< nodes[0];i++) {
                         row = i + j* nodes[0];
-                        __b[row] = 2*bc[elem[0]]*mesh->getStepSize()[1]*pow(mesh->getStepSize()[0],2);
+                        __b[row] = 2*bc[elem[0]]*step[1]*step[0]*step[0];
                     }            
                 }                
             }
@@ -175,7 +176,7 @@ void LU_direct::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
                 else {
                     for (int j=0; j< nodes[1];j++) {
                         row = i + j* nodes[0];
-                        __b[row] = 2*bc[elem[0]]*mesh->getStepSize()[0]*pow(mesh->getStepSize()[0],2);
+                        __b[row] = 2*bc[elem[0]]*step[0]*step[1]*step[1];
                     }              
                 }                
             }
@@ -186,11 +187,10 @@ void LU_direct::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
 // heat extraction of the system. 
         if (!pde->isHomogeneous()){ 
             double k = pde->getK();
-            array<double,2> step = mesh->getStepSize();
             array<int,2> heat_ss_node_loc;
             heat_ss_node_loc[0] = (int) round(pde->getHeatSsLoc()[0]/step[0]);
             heat_ss_node_loc[1] = (int) round(pde->getHeatSsLoc()[1]/step[1]);
-            __b[heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]] += - heat_ss/k * pow(step[0]*step[1], 2);
+            __b[heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]] += - heat_ss/k * step[0]*step[0]*step[1]*step[1];
         }
 
         return;
@@ -258,9 +258,6 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
 
         vector<double> rows (no_of_elems, 0.0);
         __M = vector<vector<double>> (no_of_elems,rows);
-        __L = vector<vector<double>> (no_of_elems,rows);
-        __U = vector<vector<double>> (no_of_elems,rows);
-
 
         double dx = mesh->getStepSize()[0];
         double dy = mesh->getStepSize()[1];
@@ -294,11 +291,11 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
         for (int i=1; i < nodes[0]-1; i++) {
             for (int j=1; j < nodes[1]-1; j++) {
                 row = i + j*nodes[0];
-                __M[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
-                __M[row][row-1] = pow(dy, 2);
-                __M[row][row+1] = pow(dy, 2);
-                __M[row][row+nodes[0]] = pow(dx, 2);
-                __M[row][row-nodes[0]] = pow(dx, 2);
+                __M[row][row] = -2 * (dx*dx + dy*dy);
+                __M[row][row-1] = dy*dy;
+                __M[row][row+1] = dy*dy;
+                __M[row][row+nodes[0]] = dx*dx;
+                __M[row][row-nodes[0]] = dx*dx;
             }
         }
 
@@ -319,17 +316,17 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int i=1; i< nodes[0]-1;i++) {
                         row = i + j* nodes[0];
-                        __M[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[row][row-1] = pow(dy, 2);
-                        __M[row][row+1] = pow(dy, 2);
-                        __M[row][row+nodes[0]] = 2 * pow(dx, 2);
+                        __M[row][row] = -2 * (dx*dx + dy*dy);
+                        __M[row][row-1] = dy*dy;
+                        __M[row][row+1] = dy*dy;
+                        __M[row][row+nodes[0]] = 2 * dx*dx;
                     }
 
 // Lower Right corner
                     if (bc_types[2] == BoundaryTypes::Neumann){
-                        __M[nodes[0]-1][nodes[0]-1] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[nodes[0]-1][nodes[0]-2] = 2 * pow(dy, 2);
-                        __M[nodes[0]-1][2*nodes[0]-1] = 2 * pow(dx, 2);                        
+                        __M[nodes[0]-1][nodes[0]-1] = -2 * (dx*dx + dy*dy);
+                        __M[nodes[0]-1][nodes[0]-2] = 2 * dy*dy;
+                        __M[nodes[0]-1][2*nodes[0]-1] = 2 * dx*dx;                        
                     }
                 }                
             }
@@ -347,17 +344,17 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int i=1; i< nodes[0]-1;i++) {
                         row = i + j* nodes[0];
-                        __M[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[row][row-1] = pow(dy, 2);
-                        __M[row][row+1] = pow(dy, 2);
-                        __M[row][row-nodes[0]] = 2 * pow(dx, 2);
+                        __M[row][row] = -2 * (dx*dx + dy*dy);
+                        __M[row][row-1] = dy*dy;
+                        __M[row][row+1] = dy*dy;
+                        __M[row][row-nodes[0]] = 2 * dx*dx;
                     }    
 
 // Upper Left corner
                     if (bc_types[1] == BoundaryTypes::Neumann){
-                        __M[(nodes[1]-1)*nodes[0]][(nodes[1]-1)*nodes[0]] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[(nodes[1]-1)*nodes[0]][(nodes[1]-1)*nodes[0]+1] = 2 * pow(dy, 2);
-                        __M[(nodes[1]-1)*nodes[0]][nodes[1]*nodes[0] - 2*nodes[0]] = 2 * pow(dx, 2);                       
+                        __M[(nodes[1]-1)*nodes[0]][(nodes[1]-1)*nodes[0]] = -2 * (dx*dx + dy*dy);
+                        __M[(nodes[1]-1)*nodes[0]][(nodes[1]-1)*nodes[0]+1] = 2 * dy*dy;
+                        __M[(nodes[1]-1)*nodes[0]][nodes[1]*nodes[0] - 2*nodes[0]] = 2 * dx*dx;                       
                     }
                 }                
             }
@@ -375,17 +372,17 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int j=1; j< nodes[1]-1;j++) {
                         row = i + j* nodes[0];
-                        __M[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[row][row-1] = pow(dy, 2);
-                        __M[row][row+1] = pow(dy, 2);
-                        __M[row][row-nodes[0]] = 2 * pow(dx, 2);
+                        __M[row][row] = -2 * (dx*dx + dy*dy);
+                        __M[row][row-1] = dy*dy;
+                        __M[row][row+1] = dy*dy;
+                        __M[row][row-nodes[0]] = 2 * dx*dx;
                     }     
 
 // Lower Left corner
                     if (bc_types[0] == BoundaryTypes::Neumann){
-                        __M[0][0] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[0][1] = 2 * pow(dy, 2);
-                        __M[0][nodes[0]] = 2 * pow(dx, 2);
+                        __M[0][0] = -2 * (dx*dx + dy*dy);
+                        __M[0][1] = 2 * dy*dy;
+                        __M[0][nodes[0]] = 2 * dx*dx;
                     }         
                 }                
             }
@@ -403,17 +400,17 @@ void LU_direct::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int j=1; j< nodes[1]-1;j++) {
                         row = i + j* nodes[0];
-                        __M[row][row] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[row][row-1] = pow(dy, 2);
-                        __M[row][row+1] = pow(dy, 2);
-                        __M[row][row-nodes[0]] = 2 * pow(dx, 2);
+                        __M[row][row] = -2 * (dx*dx + dy*dy);
+                        __M[row][row-1] = dy*dy;
+                        __M[row][row+1] = dy*dy;
+                        __M[row][row-nodes[0]] = 2 * dx*dx;
                     }   
 
 // Upper Right corner
                     if (bc_types[3] == BoundaryTypes::Neumann){
-                        __M[nodes[0]*nodes[1] - 1][nodes[0]*nodes[1] - 1] = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M[nodes[0]*nodes[1] - 1][nodes[0]*nodes[1] - 2] = 2 * pow(dy, 2);
-                        __M[row][nodes[0]*(nodes[1] - 1) - 1] = 2 * pow(dx, 2);
+                        __M[nodes[0]*nodes[1] - 1][nodes[0]*nodes[1] - 1] = -2 * (dx*dx + dy*dy);
+                        __M[nodes[0]*nodes[1] - 1][nodes[0]*nodes[1] - 2] = 2 * dy*dy;
+                        __M[row][nodes[0]*(nodes[1] - 1) - 1] = 2 * dx*dx;
                     }         
                 }                
             }
@@ -507,25 +504,29 @@ void LU_direct::LUFactorization() {
 
     const int N = __M.size();
     double sum;
+    __L = vector<vector<double>> (N, vector<double> {});
+    __U = vector<vector<double>> (N, vector<double> {});
 
 // Calculate elements of L and then elements of U 
     for (int i = 0; i < N; i++) {
+        __L[i].reserve(i+1);
+        __U[i].reserve(N-i);
         for (int k = 0; k < i; k++) {
             
             sum = 0.0;
             for (int j = 0; j < k; j++) {
                 sum = sum + __L[i][j]*__U[j][k];
             }
-            __L[i][k] = (__M[i][k] - sum)/__U[k][k];
+            __L[i].push_back((__M[i][k] - sum)/__U[k][k]);
         }
-        __L[i][i] = 1;
+        __L[i].push_back(1);
 
         for (int k = 0; k < N; k++) {
             sum = 0.0;
             for (int j = 0; j < i; j++) {
                 sum = sum + __L[i][j]*__U[j][k];
             }
-            __U[i][k] = __M[i][k] - sum;
+            __U[i].push_back(__M[i][k] - sum);
         }
         
     }
@@ -729,6 +730,7 @@ void LU_sparse::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
 
         double heat_ss = pde->getHeatSs();
         array<int,2> nodes = mesh->getNumNodes();
+        array<double,2> step = mesh->getStepSize();
         size_t no_of_elems = nodes[0]*nodes[1];
         __b = VectorXd (no_of_elems);
 
@@ -777,7 +779,7 @@ void LU_sparse::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
                 else {
                     for (int i=0; i< nodes[0];i++) {
                         row = i + j* nodes[0];
-                        __b.coeffRef(row) = 2*bc[elem[0]]*mesh->getStepSize()[1]*pow(mesh->getStepSize()[0],2);
+                        __b.coeffRef(row) = 2*bc[elem[0]]*step[1]*step[0]*step[0];
                     }            
                 }                
             }
@@ -792,7 +794,7 @@ void LU_sparse::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
                 else {
                     for (int j=0; j< nodes[1];j++) {
                         row = i + j* nodes[0];
-                        __b.coeffRef(row) = 2*bc[elem[0]]*mesh->getStepSize()[0]*pow(mesh->getStepSize()[0],2);
+                        __b.coeffRef(row) = 2*bc[elem[0]]*step[0]*step[1]*step[1];
                     }              
                 }                
             }
@@ -803,11 +805,10 @@ void LU_sparse::setupRhs(const std::unique_ptr<Initiation>& pde, const std::uniq
 // heat extraction of the system.
         if (!pde->isHomogeneous()){ 
             double k = pde->getK();
-            array<double,2> step = mesh->getStepSize();
             array<int,2> heat_ss_node_loc;
             heat_ss_node_loc[0] = (int) round(pde->getHeatSsLoc()[0]/step[0]);
             heat_ss_node_loc[1] = (int) round(pde->getHeatSsLoc()[1]/step[1]);
-            __b.coeffRef(heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]) += - heat_ss/k * pow(step[0]*step[1], 2);
+            __b.coeffRef(heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]) += - heat_ss/k * step[0]*step[0]*step[1]*step[1];
         }
 
         return;
@@ -872,11 +873,11 @@ void LU_sparse::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
         for (int i=1; i < nodes[0]-1; i++) {
             for (int j=1; j < nodes[1]-1; j++) {
                 row = i + j*nodes[0];
-                __M.coeffRef(row,row) = -2 * (pow(dx, 2) + pow(dy, 2));
-                __M.coeffRef(row,row-1) = pow(dy, 2);
-                __M.coeffRef(row,row+1) = pow(dy, 2);
-                __M.coeffRef(row,row+nodes[0]) = pow(dx, 2);
-                __M.coeffRef(row,row-nodes[0]) = pow(dx, 2);
+                __M.coeffRef(row,row) = -2 * (dx*dx + dy*dy);
+                __M.coeffRef(row,row-1) = dy*dy;
+                __M.coeffRef(row,row+1) = dy*dy;
+                __M.coeffRef(row,row+nodes[0]) = dx*dx;
+                __M.coeffRef(row,row-nodes[0]) = dx*dx;
             }
         }
 
@@ -897,17 +898,17 @@ void LU_sparse::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int i=1; i< nodes[0]-1;i++) {
                         row = i + j* nodes[0];
-                        __M.coeffRef(row, row) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(row, row-1) = pow(dy, 2);
-                        __M.coeffRef(row, row+1) = pow(dy, 2);
-                        __M.coeffRef(row, row+nodes[0]) = 2 * pow(dx, 2);
+                        __M.coeffRef(row, row) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(row, row-1) = dy*dy;
+                        __M.coeffRef(row, row+1) = dy*dy;
+                        __M.coeffRef(row, row+nodes[0]) = 2 * dx*dx;
                     }
 
 // Lower Right corner
                     if (bc_types[2] == BoundaryTypes::Neumann){
-                        __M.coeffRef(nodes[0]-1, nodes[0]-1) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(nodes[0]-1, nodes[0]-2) = 2 * pow(dy, 2);
-                        __M.coeffRef(nodes[0]-1, 2*nodes[0]-1) = 2 * pow(dx, 2);                        
+                        __M.coeffRef(nodes[0]-1, nodes[0]-1) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(nodes[0]-1, nodes[0]-2) = 2 * dy*dy;
+                        __M.coeffRef(nodes[0]-1, 2*nodes[0]-1) = 2 * dx*dx;                        
                     }
                 }                
             }
@@ -925,17 +926,17 @@ void LU_sparse::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int i=1; i< nodes[0]-1;i++) {
                         row = i + j* nodes[0];
-                        __M.coeffRef(row, row) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(row, row-1) = pow(dy, 2);
-                        __M.coeffRef(row, row+1) = pow(dy, 2);
-                        __M.coeffRef(row, row-nodes[0]) = 2 * pow(dx, 2);
+                        __M.coeffRef(row, row) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(row, row-1) = dy*dy;
+                        __M.coeffRef(row, row+1) = dy*dy;
+                        __M.coeffRef(row, row-nodes[0]) = 2 * dx*dx;
                     }    
 
 // Upper Left corner
                     if (bc_types[1] == BoundaryTypes::Neumann){
-                        __M.coeffRef((nodes[1]-1)*nodes[0], (nodes[1]-1)*nodes[0]) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef((nodes[1]-1)*nodes[0], (nodes[1]-1)*nodes[0]+1) = 2 * pow(dy, 2);
-                        __M.coeffRef((nodes[1]-1)*nodes[0], nodes[1]*nodes[0] - 2*nodes[0]) = 2 * pow(dx, 2);                       
+                        __M.coeffRef((nodes[1]-1)*nodes[0], (nodes[1]-1)*nodes[0]) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef((nodes[1]-1)*nodes[0], (nodes[1]-1)*nodes[0]+1) = 2 * dy*dy;
+                        __M.coeffRef((nodes[1]-1)*nodes[0], nodes[1]*nodes[0] - 2*nodes[0]) = 2 * dx*dx;                       
                     }
                 }                
             }
@@ -953,17 +954,17 @@ void LU_sparse::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int j=1; j< nodes[1]-1;j++) {
                         row = i + j* nodes[0];
-                        __M.coeffRef(row, row) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(row, row-1) = pow(dy, 2);
-                        __M.coeffRef(row, row+1) = pow(dy, 2);
-                        __M.coeffRef(row, row-nodes[0]) = 2 * pow(dx, 2);
+                        __M.coeffRef(row, row) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(row, row-1) = dy*dy;
+                        __M.coeffRef(row, row+1) = dy*dy;
+                        __M.coeffRef(row, row-nodes[0]) = 2 * dx*dx;
                     }   
   
 // Lower Left corner
                     if (bc_types[0] == BoundaryTypes::Neumann){
-                        __M.coeffRef(0, 0) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(0, 1) = 2 * pow(dy, 2);
-                        __M.coeffRef(0, nodes[0]) = 2 * pow(dx, 2);
+                        __M.coeffRef(0, 0) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(0, 1) = 2 * dy*dy;
+                        __M.coeffRef(0, nodes[0]) = 2 * dx*dx;
                     }         
                 }                
             }
@@ -981,17 +982,17 @@ void LU_sparse::setupMatrix(const std::unique_ptr<Initiation>& pde, const std::u
                 else {
                     for (int j=1; j< nodes[1]-1;j++) {
                         row = i + j* nodes[0];
-                        __M.coeffRef(row, row) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(row, row-1) = pow(dy, 2);
-                        __M.coeffRef(row, row+1) = pow(dy, 2);
-                        __M.coeffRef(row, row-nodes[0]) = 2 * pow(dx, 2);
+                        __M.coeffRef(row, row) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(row, row-1) = dy*dy;
+                        __M.coeffRef(row, row+1) = dy*dy;
+                        __M.coeffRef(row, row-nodes[0]) = 2 * dx*dx;
                     }     
 
 // Upper Right corner
                     if (bc_types[3] == BoundaryTypes::Neumann){
-                        __M.coeffRef(nodes[0]*nodes[1] - 1, nodes[0]*nodes[1] - 1) = -2 * (pow(dx, 2) + pow(dy, 2));
-                        __M.coeffRef(nodes[0]*nodes[1] - 1, nodes[0]*nodes[1] - 2) = 2 * pow(dy, 2);
-                        __M.coeffRef(row, nodes[0]*(nodes[1] - 1) - 1) = 2 * pow(dx, 2);
+                        __M.coeffRef(nodes[0]*nodes[1] - 1, nodes[0]*nodes[1] - 1) = -2 * (dx*dx + dy*dy);
+                        __M.coeffRef(nodes[0]*nodes[1] - 1, nodes[0]*nodes[1] - 2) = 2 * dy*dy;
+                        __M.coeffRef(row, nodes[0]*(nodes[1] - 1) - 1) = 2 * dx*dx;
                     }         
                 }                
             }
@@ -1061,6 +1062,7 @@ void Seidel::setupRhs(const std::unique_ptr<Initiation>& pde, const std::unique_
 
         double heat_ss = pde->getHeatSs();
         array<int,2> nodes = mesh->getNumNodes();
+        array<double,2> step = mesh->getStepSize();
         size_t no_of_elems = nodes[0]*nodes[1];
         __b = vector<double> (no_of_elems, 0.0);
 
@@ -1109,7 +1111,7 @@ void Seidel::setupRhs(const std::unique_ptr<Initiation>& pde, const std::unique_
                 else {
                     for (int i=0; i< nodes[0];i++) {
                         row = i + j* nodes[0];
-                        __b[row] = 2*bc[elem[0]]*mesh->getStepSize()[1]*pow(mesh->getStepSize()[0],2);
+                        __b[row] = 2*bc[elem[0]]*step[1]*step[0]*step[0];
                     }            
                 }                
             }
@@ -1124,7 +1126,7 @@ void Seidel::setupRhs(const std::unique_ptr<Initiation>& pde, const std::unique_
                 else {
                     for (int j=0; j< nodes[1];j++) {
                         row = i + j* nodes[0];
-                        __b[row] = 2*bc[elem[0]]*mesh->getStepSize()[0]*pow(mesh->getStepSize()[0],2);
+                        __b[row] = 2*bc[elem[0]]*step[0]*step[1]*step[1];
                     }              
                 }                
             }
@@ -1135,11 +1137,10 @@ void Seidel::setupRhs(const std::unique_ptr<Initiation>& pde, const std::unique_
 // heat extraction of the system. 
         if (!pde->isHomogeneous()){ 
             double k = pde->getK();
-            array<double,2> step = mesh->getStepSize();
             array<int,2> heat_ss_node_loc;
             heat_ss_node_loc[0] = (int) round(pde->getHeatSsLoc()[0]/step[0]);
             heat_ss_node_loc[1] = (int) round(pde->getHeatSsLoc()[1]/step[1]);
-            __b[heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]] += - heat_ss/k * pow(step[0]*step[1], 2);
+            __b[heat_ss_node_loc[0] + heat_ss_node_loc[1]*nodes[0]] += - heat_ss/k * step[0]*step[0]*step[1]*step[1];
         }
 
         return;
@@ -1311,7 +1312,7 @@ void Seidel::solve(const std::unique_ptr<Initiation>& pde, const std::unique_ptr
 
 // Update the residual norm using the stencil, the current value of the node and the right hand side of the system.
                 tmp = __b[row - nodes[0]] - (tmp2 + tmp_sol[row]*den);
-                res_norm += pow(tmp,2);
+                res_norm += tmp*tmp;
             }
         }
 

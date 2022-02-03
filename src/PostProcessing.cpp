@@ -12,20 +12,23 @@ PostProcessing::PostProcessing(const std::unique_ptr<Initiation> & pde_type, con
 : _pde_type(pde_type.get()), _mesh(mesh.get()), _sol(solver->getSolution())
 {
     if(_pde_type->isTestCase()) {
-        int N = _sol[0].size();
-        _error = vector<double> (N, 0);
+        // int N = _sol[0].size();
+        // _error = vector<double> (N, 0);
 
-        for (int i = 0; i < N; i++) {
-            if (abs(_sol[1][i]) > pow(10,-14)) {
-                _error[i] = abs(_sol[1][i] - _sol[0][i])/abs(_sol[1][i]);
-            }
-            else {
-                _error[i] = 0;
-            }
-        }    
+        // for (int i = 0; i < N; i++) {
+        //     if (abs(_sol[1][i]) > pow(10,-14)) {
+        //         _error[i] = abs(_sol[1][i] - _sol[0][i])/abs(_sol[1][i]);
+        //     }
+        //     else {
+        //         _error[i] = 0;
+        //     }
+        // }    
+        _error = solver->getError();
     }
 }
 
+// Improve in general the way that memory is accessed here. Is there something to improve for performance?
+// This is one function where more resources are consumed.
 
 void PostProcessing::exportResult() {
     // @ Save all results collected from all previous computations to a csv file
@@ -78,6 +81,8 @@ void PostProcessing::exportResult() {
 }
 
 void PostProcessing::printError(){
+    Utilities utils;
+    utils.print_vector(_error);
     // @ Print a summary of the error of the numerical against analytical solution if test case is true.
     if(_pde_type->isTestCase()){
         double avg = accumulate(_error.begin(), _error.end(), 0.0) / _error.size();
@@ -90,6 +95,9 @@ void PostProcessing::printError(){
         cout << "\n-------------------- Not a test case, no error output ---------------- \n" << endl;
     }
 }
+
+
+// Improve in general the way that memory is accessed here. Is there something to improve for performance?
 
 void PostProcessing::plotResult(){
     // @ Using matplotlibcpp, open a GUI to plot the results of the simulated temperature values on a 3D contour plot
