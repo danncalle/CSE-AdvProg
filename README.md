@@ -286,3 +286,8 @@ Check `../results/results.csv` file with the details of the results.
 <div style="text-align:center">
     <img src="assets/images/example3.png" alt="Neumann with Gauss Seidel case visualization" width="450">
 </div>
+
+## Sprint 3 (v3.0)
+### What's new?
+
+After studying the performance of the code, optimization was carried out for the bottleneck functions/methods. A complete performance study and the new results after optimization can be found in `performance.md`. As a teaser, the program is now at least 4.8x faster than the original code (depends on the test case as well as other parameters, see a complete discussion in `performance.md`)! 
