@@ -1,0 +1,398 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 99.71      3.36     3.36        1     3.36     3.36  LU_direct::LUFactorization()
+  0.30      3.37     0.01        1     0.01     0.01  LU_direct::forwardSubstitution(std::vector<double, std::allocator<double> > const&)
+  0.00      3.37     0.00  3840800     0.00     0.00  void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  0.00      3.37     0.00     3200     0.00     0.00  std::vector<double, std::allocator<double> >::reserve(unsigned long)
+  0.00      3.37     0.00     1605     0.00     0.00  Initiation::isTestCase() const
+  0.00      3.37     0.00     1600     0.00     0.00  void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::emplace_back<std::vector<double, std::allocator<double> > >(std::vector<double, std::allocator<double> >&&)
+  0.00      3.37     0.00       52     0.00     0.00  matplotlibcpp::detail::_interpreter::safe_import(_object*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  0.00      3.37     0.00       42     0.00     0.00  std::vector<double, std::allocator<double> >::vector(unsigned long, double const&, std::allocator<double> const&)
+  0.00      3.37     0.00       24     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag)
+  0.00      3.37     0.00        6     0.00     0.00  Initiation::getCoordinateSystem() const
+  0.00      3.37     0.00        6     0.00     0.00  EllipticPDE::getBcs() const
+  0.00      3.37     0.00        5     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+  0.00      3.37     0.00        4     0.00     0.00  Mesh::getStepSize() const
+  0.00      3.37     0.00        4     0.00     0.00  void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::emplace_back<BoundaryTypes>(BoundaryTypes&&)
+  0.00      3.37     0.00        3     0.00     0.00  _object* matplotlibcpp::detail::get_2darray<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&)
+  0.00      3.37     0.00        3     0.00     0.00  Mesh::getNumNodes() const
+  0.00      3.37     0.00        3     0.00     0.00  void Eigen::internal::MappedSuperNodalMatrix<double, int>::solveInPlace<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&) const
+  0.00      3.37     0.00        3     0.00     0.00  void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::_M_realloc_insert<BoundaryTypes>(__gnu_cxx::__normal_iterator<BoundaryTypes*, std::vector<BoundaryTypes, std::allocator<BoundaryTypes> > >, BoundaryTypes&&)
+  0.00      3.37     0.00        3     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::reserve(unsigned long)
+  0.00      3.37     0.00        3     0.00     0.00  std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(unsigned long, std::vector<double, std::allocator<double> > const&, std::allocator<std::vector<double, std::allocator<double> > > const&)
+  0.00      3.37     0.00        3     0.00     0.00  void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)
+  0.00      3.37     0.00        2     0.00     0.00  EllipticPDE::getBcTypes() const
+  0.00      3.37     0.00        2     0.00     0.00  void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_assign_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag)
+  0.00      3.37     0.00        2     0.00     0.00  void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__Z15initiateProgramv
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN10InitiationC2E16CoordinateSystembb7PDEType
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN11EllipticPDEC2E16CoordinateSystembb
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN14PostProcessingC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I4MeshS2_IS7_EERKS0_I6SolverS2_ISC_EE
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN4MeshC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I6DomainS2_IS7_EE
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN6DomainC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EE
+  0.00      3.37     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN6SolverC2E10SolverTypeb
+  0.00      3.37     0.00        1     0.00     0.00  Initiation::Initiation(CoordinateSystem, bool, bool, PDEType)
+  0.00      3.37     0.00        1     0.00     0.00  void matplotlibcpp::plot_surface<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, long)
+  0.00      3.37     0.00        1     0.00     0.00  matplotlibcpp::detail::_interpreter::_interpreter()
+  0.00      3.37     0.00        1     0.00     0.00  Mesh::_saveMeshTranspose()
+  0.00      3.37     0.00        1     0.00     0.00  Mesh::_generateCartesianMesh(std::array<double, 2ul> const&)
+  0.00      3.37     0.00        1     0.00     0.00  Solver::Solver(SolverType, bool)
+  0.00      3.37     0.00        1     0.00     0.00  LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&)
+  0.00      3.37     0.00        1     0.00     0.00  LU_direct::backwardSubstitution(std::vector<double, std::allocator<double> > const&)
+  0.00      3.37     0.00        1     0.00     0.00  LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&)
+  0.00      3.37     0.00        1     0.00     0.00  Initiation::isHomogeneous() const
+  0.00      3.37     0.00        1     0.00     0.00  EllipticPDE::getHeatSs() const
+  0.00      3.37     0.00        1     0.00     0.00  Mesh::getTransMesh() const
+  0.00      3.37     0.00        1     0.00     0.00  Mesh::getMesh() const
+  0.00      3.37     0.00        1     0.00     0.00  Domain::getDimensions() const
+  0.00      3.37     0.00        1     0.00     0.00  Solver::getSolution() const
+  0.00      3.37     0.00        1     0.00     0.00  void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_assign_aux<std::vector<double, std::allocator<double> > const*>(std::vector<double, std::allocator<double> > const*, std::vector<double, std::allocator<double> > const*, std::forward_iterator_tag)
+  0.00      3.37     0.00        1     0.00     0.00  std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_erase(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.30% of 3.37 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.00    3.37                 LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+                3.36    0.00       1/1           LU_direct::LUFactorization() [2]
+                0.01    0.00       1/1           LU_direct::forwardSubstitution(std::vector<double, std::allocator<double> > const&) [3]
+                0.00    0.00       1/1           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+                0.00    0.00       1/1           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/1           LU_direct::backwardSubstitution(std::vector<double, std::allocator<double> > const&) [47]
+-----------------------------------------------
+                3.36    0.00       1/1           LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+[2]     99.7    3.36    0.00       1         LU_direct::LUFactorization() [2]
+                0.00    0.00 3840800/3840800     void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [11]
+                0.00    0.00    3200/3200        std::vector<double, std::allocator<double> >::reserve(unsigned long) [12]
+-----------------------------------------------
+                0.01    0.00       1/1           LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+[3]      0.3    0.01    0.00       1         LU_direct::forwardSubstitution(std::vector<double, std::allocator<double> > const&) [3]
+-----------------------------------------------
+                0.00    0.00 3840800/3840800     LU_direct::LUFactorization() [2]
+[11]     0.0    0.00    0.00 3840800         void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&) [11]
+-----------------------------------------------
+                0.00    0.00    3200/3200        LU_direct::LUFactorization() [2]
+[12]     0.0    0.00    0.00    3200         std::vector<double, std::allocator<double> >::reserve(unsigned long) [12]
+-----------------------------------------------
+                0.00    0.00       1/1605        LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/1605        LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+                0.00    0.00       1/1605        PostProcessing::printError() [65]
+                0.00    0.00       1/1605        PostProcessing::PostProcessing(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&, std::unique_ptr<Solver, std::default_delete<Solver> > const&) [67]
+                0.00    0.00    1601/1605        PostProcessing::exportResult() [66]
+[13]     0.0    0.00    0.00    1605         Initiation::isTestCase() const [13]
+-----------------------------------------------
+                0.00    0.00    1600/1600        Mesh::_generateCartesianMesh(std::array<double, 2ul> const&) [44]
+[14]     0.0    0.00    0.00    1600         void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::emplace_back<std::vector<double, std::allocator<double> > >(std::vector<double, std::allocator<double> >&&) [14]
+-----------------------------------------------
+                0.00    0.00      52/52          matplotlibcpp::detail::_interpreter::_interpreter() [42]
+[15]     0.0    0.00    0.00      52         matplotlibcpp::detail::_interpreter::safe_import(_object*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [15]
+-----------------------------------------------
+                0.00    0.00       1/42          LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00      41/42          LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[16]     0.0    0.00    0.00      42         std::vector<double, std::allocator<double> >::vector(unsigned long, double const&, std::allocator<double> const&) [16]
+-----------------------------------------------
+                0.00    0.00       4/24          std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) [172]
+                0.00    0.00       4/24          Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+                0.00    0.00       8/24          EllipticPDE::setBCs() [59]
+                0.00    0.00       8/24          void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_assign_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) [31]
+[17]     0.0    0.00    0.00      24         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) [17]
+-----------------------------------------------
+                0.00    0.00       1/6           Domain::Domain(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&) [138]
+                0.00    0.00       1/6           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/6           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+                0.00    0.00       1/6           PostProcessing::plotResult() [64]
+                0.00    0.00       2/6           Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+[18]     0.0    0.00    0.00       6         Initiation::getCoordinateSystem() const [18]
+-----------------------------------------------
+                0.00    0.00       1/6           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       5/6           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[19]     0.0    0.00    0.00       6         EllipticPDE::getBcs() const [19]
+-----------------------------------------------
+                0.00    0.00       2/5           initiateProgram() [57]
+                0.00    0.00       3/5           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[20]     0.0    0.00    0.00       5         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [20]
+-----------------------------------------------
+                0.00    0.00       1/4           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/4           PostProcessing::plotResult() [64]
+                0.00    0.00       2/4           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[21]     0.0    0.00    0.00       4         Mesh::getStepSize() const [21]
+-----------------------------------------------
+                0.00    0.00       4/4           EllipticPDE::setBCs() [59]
+[22]     0.0    0.00    0.00       4         void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::emplace_back<BoundaryTypes>(BoundaryTypes&&) [22]
+-----------------------------------------------
+                0.00    0.00       3/3           void matplotlibcpp::plot_surface<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, long) [41]
+[23]     0.0    0.00    0.00       3         _object* matplotlibcpp::detail::get_2darray<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [23]
+-----------------------------------------------
+                0.00    0.00       1/3           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/3           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+                0.00    0.00       1/3           PostProcessing::plotResult() [64]
+[24]     0.0    0.00    0.00       3         Mesh::getNumNodes() const [24]
+-----------------------------------------------
+                0.00    0.00       3/3           matplotlibcpp::detail::_interpreter::_interpreter() [42]
+[25]     0.0    0.00    0.00       3         void Eigen::internal::MappedSuperNodalMatrix<double, int>::solveInPlace<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&) const [25]
+-----------------------------------------------
+                0.00    0.00       3/3           EllipticPDE::setBCs() [59]
+[26]     0.0    0.00    0.00       3         void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::_M_realloc_insert<BoundaryTypes>(__gnu_cxx::__normal_iterator<BoundaryTypes*, std::vector<BoundaryTypes, std::allocator<BoundaryTypes> > >, BoundaryTypes&&) [26]
+-----------------------------------------------
+                0.00    0.00       3/3           PostProcessing::plotResult() [64]
+[27]     0.0    0.00    0.00       3         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::reserve(unsigned long) [27]
+-----------------------------------------------
+                0.00    0.00       3/3           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[28]     0.0    0.00    0.00       3         std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(unsigned long, std::vector<double, std::allocator<double> > const&, std::allocator<std::vector<double, std::allocator<double> > > const&) [28]
+-----------------------------------------------
+                0.00    0.00       3/3           EllipticPDE::setBCs() [59]
+[29]     0.0    0.00    0.00       3         void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&) [29]
+-----------------------------------------------
+                0.00    0.00       1/2           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/2           LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+[30]     0.0    0.00    0.00       2         EllipticPDE::getBcTypes() const [30]
+-----------------------------------------------
+                0.00    0.00       2/2           EllipticPDE::setBCs() [59]
+[31]     0.0    0.00    0.00       2         void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_assign_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) [31]
+                0.00    0.00       8/24          void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) [17]
+-----------------------------------------------
+                0.00    0.00       2/2           Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+[32]     0.0    0.00    0.00       2         void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) [32]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[33]     0.0    0.00    0.00       1         _GLOBAL__sub_I__Z15initiateProgramv [33]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[34]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN10InitiationC2E16CoordinateSystembb7PDEType [34]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[35]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN11EllipticPDEC2E16CoordinateSystembb [35]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[36]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN14PostProcessingC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I4MeshS2_IS7_EERKS0_I6SolverS2_ISC_EE [36]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[37]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN4MeshC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I6DomainS2_IS7_EE [37]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[38]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN6DomainC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EE [38]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [182]
+[39]     0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN6SolverC2E10SolverTypeb [39]
+-----------------------------------------------
+                0.00    0.00       1/1           EllipticPDE::EllipticPDE(CoordinateSystem, bool, bool) [60]
+[40]     0.0    0.00    0.00       1         Initiation::Initiation(CoordinateSystem, bool, bool, PDEType) [40]
+-----------------------------------------------
+                0.00    0.00       1/1           PostProcessing::plotResult() [64]
+[41]     0.0    0.00    0.00       1         void matplotlibcpp::plot_surface<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, long) [41]
+                0.00    0.00       3/3           _object* matplotlibcpp::detail::get_2darray<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [23]
+                0.00    0.00       1/1           matplotlibcpp::detail::_interpreter::_interpreter() [42]
+-----------------------------------------------
+                0.00    0.00       1/1           void matplotlibcpp::plot_surface<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, long) [41]
+[42]     0.0    0.00    0.00       1         matplotlibcpp::detail::_interpreter::_interpreter() [42]
+                0.00    0.00      52/52          matplotlibcpp::detail::_interpreter::safe_import(_object*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [15]
+                0.00    0.00       3/3           void Eigen::internal::MappedSuperNodalMatrix<double, int>::solveInPlace<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&) const [25]
+-----------------------------------------------
+                0.00    0.00       1/1           Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+[43]     0.0    0.00    0.00       1         Mesh::_saveMeshTranspose() [43]
+-----------------------------------------------
+                0.00    0.00       1/1           Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+[44]     0.0    0.00    0.00       1         Mesh::_generateCartesianMesh(std::array<double, 2ul> const&) [44]
+                0.00    0.00    1600/1600        void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::emplace_back<std::vector<double, std::allocator<double> > >(std::vector<double, std::allocator<double> >&&) [14]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::LU_direct(bool) [151]
+[45]     0.0    0.00    0.00       1         Solver::Solver(SolverType, bool) [45]
+                0.00    0.00       1/1           void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_assign_aux<std::vector<double, std::allocator<double> > const*>(std::vector<double, std::allocator<double> > const*, std::vector<double, std::allocator<double> > const*, std::forward_iterator_tag) [55]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+[46]     0.0    0.00    0.00       1         LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [46]
+                0.00    0.00      41/42          std::vector<double, std::allocator<double> >::vector(unsigned long, double const&, std::allocator<double> const&) [16]
+                0.00    0.00       5/6           EllipticPDE::getBcs() const [19]
+                0.00    0.00       3/3           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(unsigned long, std::vector<double, std::allocator<double> > const&, std::allocator<std::vector<double, std::allocator<double> > > const&) [28]
+                0.00    0.00       3/5           std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector() [20]
+                0.00    0.00       2/4           Mesh::getStepSize() const [21]
+                0.00    0.00       1/6           Initiation::getCoordinateSystem() const [18]
+                0.00    0.00       1/3           Mesh::getNumNodes() const [24]
+                0.00    0.00       1/2           EllipticPDE::getBcTypes() const [30]
+                0.00    0.00       1/1605        Initiation::isTestCase() const [13]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+[47]     0.0    0.00    0.00       1         LU_direct::backwardSubstitution(std::vector<double, std::allocator<double> > const&) [47]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::solve(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [1]
+[48]     0.0    0.00    0.00       1         LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+                0.00    0.00       1/6           Initiation::getCoordinateSystem() const [18]
+                0.00    0.00       1/1           EllipticPDE::getHeatSs() const [50]
+                0.00    0.00       1/3           Mesh::getNumNodes() const [24]
+                0.00    0.00       1/4           Mesh::getStepSize() const [21]
+                0.00    0.00       1/42          std::vector<double, std::allocator<double> >::vector(unsigned long, double const&, std::allocator<double> const&) [16]
+                0.00    0.00       1/2           EllipticPDE::getBcTypes() const [30]
+                0.00    0.00       1/1605        Initiation::isTestCase() const [13]
+                0.00    0.00       1/1           Initiation::isHomogeneous() const [49]
+                0.00    0.00       1/6           EllipticPDE::getBcs() const [19]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+[49]     0.0    0.00    0.00       1         Initiation::isHomogeneous() const [49]
+-----------------------------------------------
+                0.00    0.00       1/1           LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [48]
+[50]     0.0    0.00    0.00       1         EllipticPDE::getHeatSs() const [50]
+-----------------------------------------------
+                0.00    0.00       1/1           PostProcessing::plotResult() [64]
+[51]     0.0    0.00    0.00       1         Mesh::getTransMesh() const [51]
+-----------------------------------------------
+                0.00    0.00       1/1           PostProcessing::exportResult() [66]
+[52]     0.0    0.00    0.00       1         Mesh::getMesh() const [52]
+-----------------------------------------------
+                0.00    0.00       1/1           Mesh::Mesh(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Domain, std::default_delete<Domain> > const&) [69]
+[53]     0.0    0.00    0.00       1         Domain::getDimensions() const [53]
+-----------------------------------------------
+                0.00    0.00       1/1           PostProcessing::PostProcessing(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&, std::unique_ptr<Solver, std::default_delete<Solver> > const&) [67]
+[54]     0.0    0.00    0.00       1         Solver::getSolution() const [54]
+-----------------------------------------------
+                0.00    0.00       1/1           Solver::Solver(SolverType, bool) [45]
+[55]     0.0    0.00    0.00       1         void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_assign_aux<std::vector<double, std::allocator<double> > const*>(std::vector<double, std::allocator<double> > const*, std::vector<double, std::allocator<double> > const*, std::forward_iterator_tag) [55]
+-----------------------------------------------
+                0.00    0.00       1/1           PostProcessing::plotResult() [64]
+[56]     0.0    0.00    0.00       1         std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_erase(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*) [56]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [33] _GLOBAL__sub_I__Z15initiateProgramv [2] LU_direct::LUFactorization() [54] Solver::getSolution() const
+  [34] _GLOBAL__sub_I__ZN10InitiationC2E16CoordinateSystembb7PDEType [3] LU_direct::forwardSubstitution(std::vector<double, std::allocator<double> > const&) [22] void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::emplace_back<BoundaryTypes>(BoundaryTypes&&)
+  [35] _GLOBAL__sub_I__ZN11EllipticPDEC2E16CoordinateSystembb [47] LU_direct::backwardSubstitution(std::vector<double, std::allocator<double> > const&) [26] void std::vector<BoundaryTypes, std::allocator<BoundaryTypes> >::_M_realloc_insert<BoundaryTypes>(__gnu_cxx::__normal_iterator<BoundaryTypes*, std::vector<BoundaryTypes, std::allocator<BoundaryTypes> > >, BoundaryTypes&&)
+  [36] _GLOBAL__sub_I__ZN14PostProcessingC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I4MeshS2_IS7_EERKS0_I6SolverS2_ISC_EE [48] LU_direct::setupRhs(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [31] void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_assign_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag)
+  [37] _GLOBAL__sub_I__ZN4MeshC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EERKS0_I6DomainS2_IS7_EE [13] Initiation::isTestCase() const [14] void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::emplace_back<std::vector<double, std::allocator<double> > >(std::vector<double, std::allocator<double> >&&)
+  [38] _GLOBAL__sub_I__ZN6DomainC2ERKSt10unique_ptrI10InitiationSt14default_deleteIS1_EE [49] Initiation::isHomogeneous() const [55] void std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::_M_assign_aux<std::vector<double, std::allocator<double> > const*>(std::vector<double, std::allocator<double> > const*, std::vector<double, std::allocator<double> > const*, std::forward_iterator_tag)
+  [39] _GLOBAL__sub_I__ZN6SolverC2E10SolverTypeb [18] Initiation::getCoordinateSystem() const [27] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::reserve(unsigned long)
+  [40] Initiation::Initiation(CoordinateSystem, bool, bool, PDEType) [30] EllipticPDE::getBcTypes() const [28] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::vector(unsigned long, std::vector<double, std::allocator<double> > const&, std::allocator<std::vector<double, std::allocator<double> > > const&)
+  [41] void matplotlibcpp::plot_surface<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, long) [19] EllipticPDE::getBcs() const [20] std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > >::~vector()
+  [23] _object* matplotlibcpp::detail::get_2darray<double>(std::vector<std::vector<double, std::allocator<double> >, std::allocator<std::vector<double, std::allocator<double> > > > const&) [50] EllipticPDE::getHeatSs() const [11] void std::vector<double, std::allocator<double> >::emplace_back<double>(double&&)
+  [15] matplotlibcpp::detail::_interpreter::safe_import(_object*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [24] Mesh::getNumNodes() const [29] void std::vector<double, std::allocator<double> >::_M_realloc_insert<double>(__gnu_cxx::__normal_iterator<double*, std::vector<double, std::allocator<double> > >, double&&)
+  [42] matplotlibcpp::detail::_interpreter::_interpreter() [21] Mesh::getStepSize() const [12] std::vector<double, std::allocator<double> >::reserve(unsigned long)
+  [43] Mesh::_saveMeshTranspose() [51] Mesh::getTransMesh() const [16] std::vector<double, std::allocator<double> >::vector(unsigned long, double const&, std::allocator<double> const&)
+  [44] Mesh::_generateCartesianMesh(std::array<double, 2ul> const&) [52] Mesh::getMesh() const [32] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag)
+  [45] Solver::Solver(SolverType, bool) [25] void Eigen::internal::MappedSuperNodalMatrix<double, int>::solveInPlace<Eigen::Matrix<double, -1, 1, 0, -1, 1> >(Eigen::MatrixBase<Eigen::Matrix<double, -1, 1, 0, -1, 1> >&) const [17] void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag)
+  [46] LU_direct::setupMatrix(std::unique_ptr<Initiation, std::default_delete<Initiation> > const&, std::unique_ptr<Mesh, std::default_delete<Mesh> > const&) [53] Domain::getDimensions() const [56] std::_Rb_tree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::_Select1st<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::_M_erase(std::_Rb_tree_node<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*)

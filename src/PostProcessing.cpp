@@ -127,16 +127,13 @@ void PostProcessing::plotResult(){
 
     // repeat the first row of the solution to close the circle for the polar case 
     if(_pde_type->getCoordinateSystem() == CoordinateSystem::Polar) {
-        counter = 0;
-        x_row = {}, y_row = {}, z_row = {};
         for (int j = 0; j < nodes[0]; j++) {
             // evaluate the current x and y coordinates and the equivalent temperature value, then add to the x, y, and z rows
             
-            x_row[counter] = mesh[1][counter];
-            y_row[counter] = mesh[2][counter];      
-            z_row[counter] = _sol[0][counter];
+            x_row[j] = mesh[1][j];
+            y_row[j] = mesh[2][j];      
+            z_row[j] = _sol[0][j];
             
-            counter++;
         }
 
         x.push_back(x_row);
