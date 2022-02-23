@@ -1,0 +1,9 @@
+*.o
+build/
+.vscode/
+src/CMakeCache.txt
+src/CMakeFiles/
+src/Makefile
+src/cmake_install.cmake
+src/pde_solver
+results/
